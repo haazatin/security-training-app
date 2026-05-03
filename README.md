@@ -8,6 +8,7 @@ The app teaches practical workplace security habits through short modules, reali
 
 - Learner dashboard
 - Three training modules
+- English and Hebrew language modes
 - Scenario-based questions
 - Immediate answer feedback
 - Mini quizzes
@@ -60,6 +61,12 @@ In GitHub:
 
 GitHub Pages will publish the static site automatically.
 
+## Language Support
+
+The app includes English and Hebrew. Hebrew uses the same training flow and translated content, presented right to left.
+
+Learners can switch language from the sidebar. Their selected language is stored in `localStorage`.
+
 ## Edit Training Content
 
 Training content lives in:
@@ -68,7 +75,7 @@ Training content lives in:
 src/app.js
 ```
 
-Look for the `modules` array. Each module contains:
+Look for the `modules` and `modulesHe` arrays. Each module contains:
 
 - title
 - description

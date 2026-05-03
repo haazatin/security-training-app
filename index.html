@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,17 +16,21 @@
         <a class="brand" href="#/training" aria-label="Security Training home">
           <span class="brand-mark" aria-hidden="true">ST</span>
           <span>
-            <strong>Security Training</strong>
-            <small>Practical workplace habits</small>
+            <strong id="brandTitle">Security Training</strong>
+            <small id="brandSubtitle">Practical workplace habits</small>
           </span>
         </a>
 
         <nav class="nav-links">
-          <a href="#/training" data-route="training">Training</a>
-          <a href="#/progress" data-route="progress">Progress</a>
-          <a href="#/resources" data-route="resources">Resources</a>
-          <a href="#/results" data-route="results">Results</a>
+          <a href="#/training" data-route="training" data-nav-label="training">Training</a>
+          <a href="#/progress" data-route="progress" data-nav-label="progress">Progress</a>
+          <a href="#/resources" data-route="resources" data-nav-label="resources">Resources</a>
+          <a href="#/results" data-route="results" data-nav-label="results">Results</a>
         </nav>
+
+        <button class="language-toggle" id="languageToggle" type="button">
+          עברית
+        </button>
       </aside>
 
       <main id="app" class="main-content" tabindex="-1"></main>

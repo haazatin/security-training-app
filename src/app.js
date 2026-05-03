@@ -410,13 +410,579 @@ const resources = [
   }
 ];
 
+const modulesHe = [
+  {
+    id: "pii",
+    title: "טיפול במידע אישי ובמידע חברה",
+    description: "למדו לזהות מידע אישי ולשתף אותו בצורה בטוחה.",
+    durationMinutes: 6,
+    steps: [
+      {
+        title: "מתייחסים למידע אישי בזהירות",
+        body: [
+          "מידע אישי הוא מידע שיכול לזהות אדם, למשל שם, כתובת אימייל, מספר טלפון, מספר זהות, כתובת, מספר חשבון או רשומת לקוח.",
+          "כלל יומיומי פשוט: אם המידע מצביע על אדם מסוים, מטפלים בו בזהירות."
+        ],
+        example: {
+          type: "תצוגה מקדימה של גיליון",
+          title: "חידושי לקוחות.xlsx",
+          rows: [
+            ["לקוחה", "מאיה כהן"],
+            ["אימייל", "maya@example.com"],
+            ["טלפון", "+972-50-123-4567"],
+            ["הערת חידוש", "צריך לעדכן כרטיס תשלום"]
+          ]
+        },
+        question: {
+          prompt: "איזה פריט בקובץ הזה צריך לגרום לכם לעצור לפני שיתוף?",
+          options: [
+            {
+              id: "a",
+              label: "רק שם הקובץ",
+              correct: false,
+              feedback: "לא בדיוק. שם הקובץ פחות חשוב מהפרטים האישיים שנמצאים בתוך הקובץ."
+            },
+            {
+              id: "b",
+              label: "שם הלקוחה, האימייל, הטלפון והערת החשבון",
+              correct: true,
+              feedback: "זיהוי טוב. הפרטים האלה מזהים אדם ולכן צריך לשתף אותם רק בדרכים מאושרות."
+            },
+            {
+              id: "c",
+              label: "שום דבר, כי זה גיליון עבודה רגיל",
+              correct: false,
+              feedback: "לא בדיוק. קבצי עבודה יומיומיים כוללים לעיתים קרובות מידע אישי רגיש."
+            }
+          ]
+        },
+        takeaway: "מתייחסים למידע אישי כרגיש כברירת מחדל."
+      },
+      {
+        title: "משתפים רק את המינימום הדרוש",
+        body: [
+          "לפני שליחת קובץ, שאלו מה הנמען באמת צריך. קובץ קטן וממוקד מצמצם סיכון.",
+          "הסירו עמודות מיותרות, גיליונות מוסתרים, צילומי מסך והערות שלא נחוצים למשימה."
+        ],
+        example: {
+          type: "טיוטת אימייל",
+          title: "נושא: רשימת לקוחות לספק",
+          rows: [
+            ["אל", "vendor@example.net"],
+            ["קובץ מצורף", "all_customers_full_export.xlsx"],
+            ["הודעה", "מצורף הייצוא המלא שביקשתם."]
+          ]
+        },
+        question: {
+          prompt: "מה הצעד הבטוח ביותר לפני שליחת הקובץ?",
+          options: [
+            {
+              id: "a",
+              label: "לשלוח מהר כי הספק ביקש את זה",
+              correct: false,
+              feedback: "לא בדיוק. ייצוא מלא עלול לכלול יותר מידע אישי ממה שהספק צריך."
+            },
+            {
+              id: "b",
+              label: "ליצור קובץ קטן ומאושר עם השדות הדרושים בלבד",
+              correct: true,
+              feedback: "זיהוי טוב. שיתוף המינימום הדרוש מצמצם את הנזק אם משהו משתבש."
+            },
+            {
+              id: "c",
+              label: "להעביר קודם לעמית כדי שהוא ישלח",
+              correct: false,
+              feedback: "לא בדיוק. העברה הלאה יכולה להפיץ מידע רגיש בלי לפתור את הסיכון."
+            }
+          ]
+        },
+        takeaway: "משתפים רק את המידע שנדרש לעבודה."
+      },
+      {
+        title: "משתמשים בכלי שיתוף מאושרים",
+        body: [
+          "כלים מאושרים בדרך כלל כוללים בקרת גישה, אפשרות לתוקף קישור ותיעוד פעולות.",
+          "קישורים ציבוריים, מכשירים אישיים ואימיילים פרטיים מקשים על הגנה על מידע חברה ולקוחות."
+        ],
+        example: {
+          type: "חלון שיתוף קבצים",
+          title: "שיתוף: צילומי מסך מתמיכה",
+          rows: [
+            ["גישה", "כל מי שיש לו את הקישור"],
+            ["הורדה", "מותרת"],
+            ["תוקף", "ללא"],
+            ["תיקייה", "תמיכת לקוחות"]
+          ]
+        },
+        question: {
+          prompt: "מה כדאי לשנות לפני שיתוף התיקייה?",
+          options: [
+            {
+              id: "a",
+              label: "להגביל גישה לאנשים הספציפיים שצריכים אותה",
+              correct: true,
+              feedback: "זיהוי טוב. גישה ספציפית בטוחה יותר מקישור ציבורי, במיוחד כשיש מידע לקוחות."
+            },
+            {
+              id: "b",
+              label: "לתת לתיקייה שם פחות ברור",
+              correct: false,
+              feedback: "לא בדיוק. שינוי שם התיקייה לא קובע מי יכול לפתוח אותה."
+            },
+            {
+              id: "c",
+              label: "להשאיר את הקישור ציבורי כדי שלא יהיו בעיות גישה",
+              correct: false,
+              feedback: "לא בדיוק. נוחות לא צריכה לבוא על חשבון בקרת גישה למידע רגיש."
+            }
+          ]
+        },
+        takeaway: "משתמשים בכלים מאושרים ובבקרת גישה."
+      },
+      {
+        title: "מדווחים מהר על טעויות",
+        body: [
+          "טעויות קורות. דיווח מהיר מאפשר לחברה לצמצם נזק, להסיר גישה או לפנות לגורמים הנכונים.",
+          "לא מחכים לראות אם הבעיה תגדל."
+        ],
+        example: {
+          type: "הודעת צ'אט",
+          title: "ערוץ צוות",
+          rows: [
+            ["אתם", "שלחתי את קובץ הלקוחות לאיש קשר חיצוני לא נכון."],
+            ["זמן", "לפני 2 דקות"],
+            ["קובץ", "customer_cases_march.xlsx"]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לעשות עכשיו?",
+          options: [
+            {
+              id: "a",
+              label: "למחוק את ההודעה שנשלחה ולקוות שאף אחד לא שם לב",
+              correct: false,
+              feedback: "לא בדיוק. מחיקת העותק שלכם לא בהכרח מסירה גישה או מצמצמת את הסיכון."
+            },
+            {
+              id: "b",
+              label: "לדווח מיד דרך תהליך האבטחה או הפרטיות המאושר",
+              correct: true,
+              feedback: "זיהוי טוב. דיווח מהיר עוזר לצוות המתאים לצמצם חשיפה."
+            },
+            {
+              id: "c",
+              label: "לחכות עד סוף היום ואז להזכיר את זה",
+              correct: false,
+              feedback: "לא בדיוק. עיכוב מקשה על צמצום חשיפת מידע."
+            }
+          ]
+        },
+        takeaway: "אם מידע נשלח למקום הלא נכון, מדווחים מהר."
+      }
+    ],
+    quiz: [
+      {
+        prompt: "מהי הדרך הבטוחה ביותר לשתף מידע לקוחות?",
+        options: [
+          "להשתמש בכלי מאושר ולהגביל גישה למי שצריך",
+          "לצרף את הייצוא המלא לאימייל פרטי",
+          "ליצור קישור ציבורי כדי שהגישה תהיה קלה"
+        ],
+        answer: 0
+      },
+      {
+        prompt: "מה כדאי לעשות לפני שליחת צילום מסך ממערכת לקוחות?",
+        options: [
+          "לבדוק אם הוא חושף מידע אישי ולהסיר כל מה שלא נחוץ",
+          "לשלוח כמו שהוא אם הנמען הוא עמית",
+          "להדביק אותו בערוץ צ'אט כדי לקבל עזרה מהר"
+        ],
+        answer: 0
+      },
+      {
+        prompt: "מה התגובה הנכונה אחרי שליחת מידע אישי לנמען הלא נכון?",
+        options: [
+          "לדווח מהר באמצעות התהליך המאושר",
+          "לחכות לראות אם מישהו עונה",
+          "לשלוח הודעה נוספת שמבקשת להתעלם"
+        ],
+        answer: 0
+      }
+    ],
+    takeaways: [
+      "מתייחסים למידע אישי כרגיש כברירת מחדל.",
+      "משתפים את המינימום הדרוש.",
+      "משתמשים בכלים מאושרים ובבקרת גישה.",
+      "מדווחים מהר על חשיפה בטעות."
+    ]
+  },
+  {
+    id: "phishing",
+    title: "פישינג והודעות חשודות",
+    description: "תרגלו זיהוי אימיילים חשודים, קישורים, קבצים מצורפים ובקשות דחופות.",
+    durationMinutes: 5,
+    steps: [
+      {
+        title: "עוצרים לפני שלוחצים",
+        body: [
+          "הודעות חשודות יוצרות לעיתים לחץ: חשבוניות דחופות, חשבון נעול, קבצים מצורפים מפתיעים או בקשות ממישהו שמתחזה למנהל.",
+          "עצירה קצרה נותנת זמן לבדוק את השולח, הקישור, הקובץ המצורף והבקשה."
+        ],
+        example: {
+          type: "תצוגת אימייל",
+          title: "חשבונית באיחור - נדרשת פעולה מיידית",
+          rows: [
+            ["מאת", "billing-alerts@payrnents-example.com"],
+            ["קובץ מצורף", "Invoice_Update.zip"],
+            ["הודעה", "פתחו היום כדי למנוע השעיית חשבון."]
+          ]
+        },
+        question: {
+          prompt: "איזה סימן אזהרה צריך לזהות קודם?",
+          options: [
+            {
+              id: "a",
+              label: "כתובת השולח, הטון הדחוף והקובץ המצורף הלא צפוי",
+              correct: true,
+              feedback: "זיהוי טוב. כמה סימני אזהרה מופיעים יחד, וזו סיבה טובה לעצור ולדווח."
+            },
+            {
+              id: "b",
+              label: "ההודעה קצרה",
+              correct: false,
+              feedback: "לא בדיוק. הודעות קצרות לא תמיד חשודות, אבל פרטי שולח לא תואמים ולחץ הם סימנים חשובים."
+            },
+            {
+              id: "c",
+              label: "יש קובץ ZIP, אז כנראה קל יותר להוריד אותו",
+              correct: false,
+              feedback: "לא בדיוק. קבצים דחוסים לא צפויים יכולים להיות מסוכנים."
+            }
+          ]
+        },
+        takeaway: "בודקים שולח, קישור, קובץ מצורף ובקשה לפני פעולה."
+      }
+    ],
+    quiz: [
+      {
+        prompt: "מה כדאי לעשות עם קישור התחברות לא צפוי?",
+        options: [
+          "לפתוח ולהתחבר מהר",
+          "להיכנס לשירות ישירות או לדווח על ההודעה",
+          "להעביר לצוות ולשאול מה דעתם"
+        ],
+        answer: 1
+      },
+      {
+        prompt: "איזו בקשה היא סימן אזהרה נפוץ לפישינג?",
+        options: [
+          "בקשה לסיסמאות, קודי MFA, כרטיסי מתנה או תשלומים דחופים",
+          "זימון ליומן מעמית מוכר",
+          "ניוזלטר שבועי של החברה"
+        ],
+        answer: 0
+      },
+      {
+        prompt: "מה עושים עם הודעה חשודה?",
+        options: [
+          "מדווחים עליה בתהליך המאושר",
+          "עונים לשולח ושואלים אם זה אמיתי",
+          "מעבירים אותה באופן לא רשמי לצ'אט קבוצתי"
+        ],
+        answer: 0
+      }
+    ],
+    takeaways: [
+      "עוצרים לפני שלוחצים.",
+      "לא מזינים פרטי התחברות מקישורים לא צפויים.",
+      "מדווחים על הודעות חשודות."
+    ]
+  },
+  {
+    id: "accounts",
+    title: "סיסמאות, MFA ובטיחות חשבונות",
+    description: "למדו הרגלים בטוחים יותר לסיסמאות, אישורי MFA ופעילות חשבון חריגה.",
+    durationMinutes: 5,
+    steps: [
+      {
+        title: "מגנים על גישה לחשבון",
+        body: [
+          "הרגל חשבון טוב הוא פשוט: משתמשים בסיסמאות ייחודיות, נעזרים ב-MFA, ולא מאשרים התחברות שלא יזמתם.",
+          "חשבונות משותפים ושימוש חוזר בסיסמאות גורמים לטעות אחת להתפשט לכמה מערכות."
+        ],
+        example: {
+          type: "בקשת MFA",
+          title: "לאשר התחברות?",
+          rows: [
+            ["אפליקציה", "דואר חברה"],
+            ["מיקום", "לא ידוע"],
+            ["זמן", "עכשיו"],
+            ["אתם יזמתם?", "לא"]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לעשות עם בקשת ה-MFA הזאת?",
+          options: [
+            {
+              id: "a",
+              label: "לאשר, כי בקשות MFA הן דבר רגיל",
+              correct: false,
+              feedback: "לא בדיוק. אף פעם לא מאשרים בקשה להתחברות שלא יזמתם."
+            },
+            {
+              id: "b",
+              label: "לדחות ולדווח על פעילות חשבון חריגה",
+              correct: true,
+              feedback: "זיהוי טוב. בקשת MFA לא צפויה יכולה להעיד שלמישהו יש את הסיסמה שלכם."
+            },
+            {
+              id: "c",
+              label: "להתעלם ולהמשיך לעבוד",
+              correct: false,
+              feedback: "לא בדיוק. התעלמות עלולה לפספס סימן לכך שהחשבון בסיכון."
+            }
+          ]
+        },
+        takeaway: "לא מאשרים בקשת MFA שלא יזמתם."
+      }
+    ],
+    quiz: [
+      {
+        prompt: "מהו הרגל סיסמאות בטוח יותר?",
+        options: [
+          "להשתמש באותה סיסמה זכירה בכל מקום",
+          "להשתמש בסיסמאות ייחודיות, עדיף עם מנהל סיסמאות",
+          "לשתף חשבון צוות מטעמי נוחות"
+        ],
+        answer: 1
+      },
+      {
+        prompt: "מה עושים אם עמית מבקש להשתמש בשם המשתמש והסיסמה שלכם?",
+        options: [
+          "משתפים רק לכמה דקות",
+          "מסרבים ומשתמשים בתהליך הגישה המאושר",
+          "כותבים על פתק ואוספים אחר כך"
+        ],
+        answer: 1
+      },
+      {
+        prompt: "על מה יכולה להעיד בקשת MFA לא צפויה?",
+        options: [
+          "ייתכן שמישהו מנסה להיכנס לחשבון שלכם",
+          "הסיסמה שלכם בהחלט חזקה יותר עכשיו",
+          "המערכת מבקשת סקר שגרתי"
+        ],
+        answer: 0
+      }
+    ],
+    takeaways: [
+      "משתמשים בסיסמאות ייחודיות.",
+      "משתמשים ב-MFA בזהירות.",
+      "לא משתפים חשבונות או סיסמאות.",
+      "מדווחים על פעילות חשבון חריגה."
+    ]
+  }
+];
+
+const resourcesHe = [
+  {
+    title: "דיווח על הודעות חשודות",
+    items: [
+      "השתמשו בכפתור הדיווח של החברה או העבירו לתיבת האבטחה המאושרת.",
+      "אל תשיבו לשולח.",
+      "אל תעבירו קבצים מצורפים חשודים לצ'אטים קבוצתיים."
+    ]
+  },
+  {
+    title: "רשימת בדיקה לטיפול במידע אישי",
+    items: [
+      "בדקו אם הקובץ מזהה אדם.",
+      "הסירו מידע שאינו נחוץ.",
+      "השתמשו בכלי שיתוף מאושרים ובגישה ספציפית.",
+      "דווחו מהר על חשיפה בטעות."
+    ]
+  },
+  {
+    title: "רשימת בדיקה לבטיחות חשבון",
+    items: [
+      "השתמשו בסיסמאות ייחודיות.",
+      "השתמשו במנהל סיסמאות כשזמין.",
+      "דחו בקשות MFA לא צפויות.",
+      "דווחו על התראות התחברות חריגות."
+    ]
+  },
+  {
+    title: "עשה ואל תעשה בשיתוף מידע",
+    items: [
+      "כן להשתמש בכלי שיתוף מאושרים.",
+      "כן להגביל קישורים לאנשים או קבוצות מוגדרים.",
+      "לא להשתמש בקישורים ציבוריים לקבצים רגישים.",
+      "לא להוריד מידע חברה למכשירים אישיים."
+    ]
+  }
+];
+
+const contentByLanguage = {
+  en: {
+    dir: "ltr",
+    name: "English",
+    switchLabel: "עברית",
+    brandTitle: "Security Training",
+    brandSubtitle: "Practical workplace habits",
+    nav: {
+      training: "Training",
+      progress: "Progress",
+      resources: "Resources",
+      results: "Results"
+    },
+    status: {
+      notStarted: "Not started",
+      inProgress: "In progress",
+      complete: "Complete"
+    },
+    modules,
+    resources,
+    copy: {
+      dashboardEyebrow: "Training",
+      dashboardTitle: "Build practical security habits in a few short modules.",
+      dashboardBody:
+        "Scenario-based lessons help employees spot common risks, make safer choices, and know when to report an issue.",
+      trainingModules: "Training modules",
+      overallCompletion: "Overall completion",
+      minutes: "minutes",
+      start: "Start",
+      continue: "Continue",
+      review: "Review",
+      module: "Module",
+      of: "of",
+      lessonProgress: "Lesson progress",
+      dashboard: "Dashboard",
+      back: "Back",
+      startQuiz: "Start quiz",
+      moduleSteps: "Module Steps",
+      miniQuiz: "Mini quiz",
+      goodCatch: "Good catch.",
+      notQuite: "Not quite.",
+      quizBody: "Answer a few quick questions to complete the module.",
+      currentScore: "Current score",
+      completeModule: "Complete module",
+      completeEyebrow: "Complete",
+      completeBody: "You completed the module. Keep these habits close during everyday work.",
+      quizScore: "Quiz score",
+      keyTakeaways: "Key Takeaways",
+      returnDashboard: "Return to dashboard",
+      reviewResources: "Review resources",
+      reviewModule: "Review module",
+      progressEyebrow: "Progress",
+      progressTitle: "Your training progress",
+      progressBody: "Track completed modules and continue anything still in progress.",
+      score: "Score",
+      resourcesEyebrow: "Resources",
+      resourcesTitle: "Quick references for everyday decisions",
+      resourcesBody: "Short checklists learners can return to after completing the training.",
+      resultsEyebrow: "Demo admin view",
+      resultsTitle: "Local results summary",
+      resultsBody:
+        "This prototype stores progress in this browser only. A future backend can replace this view with organization-wide reporting.",
+      modulesComplete: "Modules complete",
+      completionRate: "Completion rate",
+      browserProfile: "for this browser profile",
+      averageQuizResult: "Average quiz result",
+      acrossScores: "across available module scores",
+      completed: "Completed",
+      noScore: "No score",
+      percentComplete: "complete",
+      moduleNotFound: "Module not found."
+    }
+  },
+  he: {
+    dir: "rtl",
+    name: "עברית",
+    switchLabel: "English",
+    brandTitle: "הדרכת אבטחת מידע",
+    brandSubtitle: "הרגלים מעשיים לעבודה",
+    nav: {
+      training: "הדרכה",
+      progress: "התקדמות",
+      resources: "משאבים",
+      results: "תוצאות"
+    },
+    status: {
+      notStarted: "טרם התחיל",
+      inProgress: "בתהליך",
+      complete: "הושלם"
+    },
+    modules: modulesHe,
+    resources: resourcesHe,
+    copy: {
+      dashboardEyebrow: "הדרכה",
+      dashboardTitle: "בונים הרגלי אבטחה מעשיים בכמה מודולים קצרים.",
+      dashboardBody:
+        "שיעורים מבוססי תרחישים עוזרים לעובדים לזהות סיכונים נפוצים, לבחור פעולה בטוחה יותר ולדעת מתי לדווח.",
+      trainingModules: "מודולי הדרכה",
+      overallCompletion: "השלמה כללית",
+      minutes: "דקות",
+      start: "התחלה",
+      continue: "המשך",
+      review: "סקירה",
+      module: "מודול",
+      of: "מתוך",
+      lessonProgress: "התקדמות בשיעור",
+      dashboard: "לוח הדרכה",
+      back: "חזרה",
+      startQuiz: "התחלת בוחן",
+      moduleSteps: "שלבי המודול",
+      miniQuiz: "בוחן קצר",
+      goodCatch: "זיהוי טוב.",
+      notQuite: "לא בדיוק.",
+      quizBody: "ענו על כמה שאלות קצרות כדי להשלים את המודול.",
+      currentScore: "ציון נוכחי",
+      completeModule: "סיום המודול",
+      completeEyebrow: "הושלם",
+      completeBody: "השלמתם את המודול. שמרו את ההרגלים האלה קרוב לעבודה היומיומית.",
+      quizScore: "ציון בבוחן",
+      keyTakeaways: "דגשים מרכזיים",
+      returnDashboard: "חזרה ללוח ההדרכה",
+      reviewResources: "סקירת משאבים",
+      reviewModule: "סקירת המודול",
+      progressEyebrow: "התקדמות",
+      progressTitle: "התקדמות ההדרכה שלכם",
+      progressBody: "עקבו אחרי מודולים שהושלמו והמשיכו כל דבר שעדיין בתהליך.",
+      score: "ציון",
+      resourcesEyebrow: "משאבים",
+      resourcesTitle: "הפניות קצרות להחלטות יומיומיות",
+      resourcesBody: "רשימות בדיקה קצרות שאפשר לחזור אליהן אחרי ההדרכה.",
+      resultsEyebrow: "תצוגת מנהל לדוגמה",
+      resultsTitle: "סיכום תוצאות מקומי",
+      resultsBody:
+        "אב הטיפוס שומר התקדמות בדפדפן הזה בלבד. בעתיד אפשר להחליף תצוגה זו בדוחות ארגוניים מבוססי שרת.",
+      modulesComplete: "מודולים הושלמו",
+      completionRate: "שיעור השלמה",
+      browserProfile: "בפרופיל הדפדפן הזה",
+      averageQuizResult: "ציון בוחן ממוצע",
+      acrossScores: "על בסיס ציוני המודולים הזמינים",
+      completed: "הושלם",
+      noScore: "אין ציון",
+      percentComplete: "הושלם",
+      moduleNotFound: "המודול לא נמצא."
+    }
+  }
+};
+
 const storageKey = "security-training-progress-v1";
 const app = document.querySelector("#app");
+const languageToggle = document.querySelector("#languageToggle");
 
 let progress = loadProgress();
+let currentLang = loadLanguage();
 
 window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", render);
+languageToggle?.addEventListener("click", () => {
+  currentLang = currentLang === "en" ? "he" : "en";
+  localStorage.setItem("security-training-language", currentLang);
+  render();
+});
 
 function loadProgress() {
   try {
@@ -427,12 +993,33 @@ function loadProgress() {
   }
 }
 
+function loadLanguage() {
+  const stored = localStorage.getItem("security-training-language");
+  return stored === "he" ? "he" : "en";
+}
+
+function activeContent() {
+  return contentByLanguage[currentLang];
+}
+
+function activeModules() {
+  return activeContent().modules;
+}
+
+function activeResources() {
+  return activeContent().resources;
+}
+
+function progressKey(moduleId) {
+  return `${currentLang}:${moduleId}`;
+}
+
 function saveProgress() {
   localStorage.setItem(storageKey, JSON.stringify(progress));
 }
 
 function moduleProgress(module) {
-  const stored = progress[module.id] || {};
+  const stored = progress[progressKey(module.id)] || {};
   const answered = stored.answers ? Object.keys(stored.answers).length : 0;
   const completed = Boolean(stored.completed);
   const percent = completed
@@ -444,12 +1031,12 @@ function moduleProgress(module) {
     answered,
     completed,
     percent,
-    status: completed ? "Complete" : answered > 0 ? "In progress" : "Not started"
+    statusKey: completed ? "complete" : answered > 0 ? "inProgress" : "notStarted"
   };
 }
 
 function nextModuleHref(module) {
-  const answers = progress[module.id]?.answers || {};
+  const answers = progress[progressKey(module.id)]?.answers || {};
   const firstOpenStep = module.steps.findIndex((_, index) => !answers[`step-${index}`]);
 
   if (firstOpenStep >= 0) return `#/module/${module.id}/${firstOpenStep}`;
@@ -457,17 +1044,19 @@ function nextModuleHref(module) {
 }
 
 function setAnswer(moduleId, key, answer) {
-  progress[moduleId] = progress[moduleId] || {};
-  progress[moduleId].answers = progress[moduleId].answers || {};
-  progress[moduleId].answers[key] = answer;
+  const keyId = progressKey(moduleId);
+  progress[keyId] = progress[keyId] || {};
+  progress[keyId].answers = progress[keyId].answers || {};
+  progress[keyId].answers[key] = answer;
   saveProgress();
 }
 
 function completeModule(module, score) {
-  progress[module.id] = progress[module.id] || {};
-  progress[module.id].completed = true;
-  progress[module.id].score = score;
-  progress[module.id].completedAt = new Date().toISOString();
+  const keyId = progressKey(module.id);
+  progress[keyId] = progress[keyId] || {};
+  progress[keyId].completed = true;
+  progress[keyId].score = score;
+  progress[keyId].completedAt = new Date().toISOString();
   saveProgress();
 }
 
@@ -483,6 +1072,7 @@ function getRoute() {
 
 function render() {
   const route = getRoute();
+  updateChrome();
   setActiveNav(route.page);
 
   if (route.page === "module") return renderModule(route.id, route.step || 0);
@@ -492,6 +1082,21 @@ function render() {
   renderDashboard();
 }
 
+function updateChrome() {
+  const content = activeContent();
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = content.dir;
+  document.title = content.brandTitle;
+  document.querySelector(".sidebar")?.setAttribute("aria-label", content.nav.training);
+  document.querySelector(".brand")?.setAttribute("aria-label", content.brandTitle);
+  document.querySelector("#brandTitle").textContent = content.brandTitle;
+  document.querySelector("#brandSubtitle").textContent = content.brandSubtitle;
+  document.querySelectorAll("[data-nav-label]").forEach((link) => {
+    link.textContent = content.nav[link.dataset.navLabel];
+  });
+  if (languageToggle) languageToggle.textContent = content.switchLabel;
+}
+
 function setActiveNav(page) {
   document.querySelectorAll(".nav-links a").forEach((link) => {
     link.classList.toggle("active", link.dataset.route === page || (page === "module" && link.dataset.route === "training"));
@@ -499,33 +1104,38 @@ function setActiveNav(page) {
 }
 
 function renderDashboard() {
+  const content = activeContent();
+  const copy = content.copy;
+  const modules = activeModules();
   const completed = modules.filter((module) => moduleProgress(module).completed).length;
   const overall = Math.round((completed / modules.length) * 100);
 
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Training</p>
-        <h1>Build practical security habits in a few short modules.</h1>
-        <p>Scenario-based lessons help employees spot common risks, make safer choices, and know when to report an issue.</p>
+        <p class="eyebrow">${copy.dashboardEyebrow}</p>
+        <h1>${copy.dashboardTitle}</h1>
+        <p>${copy.dashboardBody}</p>
       </div>
       <section class="summary-panel" aria-label="Overall progress">
         <span class="summary-number">${overall}%</span>
-        <p>Overall completion</p>
+        <p>${copy.overallCompletion}</p>
         ${progressBar(overall)}
       </section>
     </header>
 
-    <section class="module-grid" aria-label="Training modules">
+    <section class="module-grid" aria-label="${copy.trainingModules}">
       ${modules.map(renderModuleCard).join("")}
     </section>
   `;
 }
 
 function renderModuleCard(module) {
+  const content = activeContent();
+  const copy = content.copy;
   const state = moduleProgress(module);
-  const statusClass = state.status.toLowerCase().replace(" ", "-");
-  const action = state.completed ? "Review" : state.answered > 0 ? "Continue" : "Start";
+  const statusClass = state.statusKey === "notStarted" ? "not-started" : state.statusKey === "inProgress" ? "in-progress" : "complete";
+  const action = state.completed ? copy.review : state.answered > 0 ? copy.continue : copy.start;
   const href = state.completed ? `#/module/${module.id}/0` : nextModuleHref(module);
 
   return `
@@ -534,8 +1144,8 @@ function renderModuleCard(module) {
         <h2>${module.title}</h2>
         <p>${module.description}</p>
         <div class="module-meta">
-          <span class="status-pill ${statusClass}">${state.status}</span>
-          <span class="duration-pill">${module.durationMinutes} minutes</span>
+          <span class="status-pill ${statusClass}">${content.status[state.statusKey]}</span>
+          <span class="duration-pill">${module.durationMinutes} ${copy.minutes}</span>
         </div>
         ${progressBar(state.percent)}
       </div>
@@ -547,9 +1157,11 @@ function renderModuleCard(module) {
 }
 
 function renderModule(moduleId, stepIndex) {
-  const module = modules.find((item) => item.id === moduleId);
+  const content = activeContent();
+  const copy = content.copy;
+  const module = activeModules().find((item) => item.id === moduleId);
   if (!module) {
-    app.innerHTML = `<section class="empty-state">Module not found.</section>`;
+    app.innerHTML = `<section class="empty-state">${copy.moduleNotFound}</section>`;
     return;
   }
 
@@ -560,20 +1172,20 @@ function renderModule(moduleId, stepIndex) {
 
   const step = module.steps[stepIndex];
   const answerKey = `step-${stepIndex}`;
-  const selected = progress[module.id]?.answers?.[answerKey];
+  const selected = progress[progressKey(module.id)]?.answers?.[answerKey];
   const selectedOption = step.question?.options.find((option) => option.id === selected);
   const canContinue = !step.question || Boolean(selectedOption);
 
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Module ${stepIndex + 1} of ${module.steps.length}</p>
+        <p class="eyebrow">${copy.module} ${stepIndex + 1} ${copy.of} ${module.steps.length}</p>
         <h1>${module.title}</h1>
         <p>${module.description}</p>
       </div>
       <section class="summary-panel" aria-label="Module progress">
         <span class="summary-number">${Math.round(((stepIndex + 1) / (module.steps.length + 1)) * 100)}%</span>
-        <p>Lesson progress</p>
+        <p>${copy.lessonProgress}</p>
         ${progressBar(Math.round(((stepIndex + 1) / (module.steps.length + 1)) * 100))}
       </section>
     </header>
@@ -587,23 +1199,23 @@ function renderModule(moduleId, stepIndex) {
         ${
           selectedOption
             ? `<div class="feedback ${selectedOption.correct ? "correct" : "incorrect"}">
-                <strong>${selectedOption.correct ? "Good catch." : "Not quite."}</strong>
-                ${selectedOption.feedback.replace(/^(Good catch\.|Not quite\.)\s*/, "")}
+                <strong>${selectedOption.correct ? copy.goodCatch : copy.notQuite}</strong>
+                ${stripFeedbackLead(selectedOption.feedback)}
               </div>`
             : ""
         }
         <div class="lesson-actions">
-          ${stepIndex > 0 ? `<a class="button secondary" href="#/module/${module.id}/${stepIndex - 1}">Back</a>` : `<a class="button secondary" href="#/training">Dashboard</a>`}
+          ${stepIndex > 0 ? `<a class="button secondary" href="#/module/${module.id}/${stepIndex - 1}">${copy.back}</a>` : `<a class="button secondary" href="#/training">${copy.dashboard}</a>`}
           ${
             canContinue
-              ? `<a class="button" href="#/module/${module.id}/${stepIndex + 1}">${stepIndex === module.steps.length - 1 ? "Start quiz" : "Continue"}</a>`
-              : `<button class="button" disabled>${stepIndex === module.steps.length - 1 ? "Start quiz" : "Continue"}</button>`
+              ? `<a class="button" href="#/module/${module.id}/${stepIndex + 1}">${stepIndex === module.steps.length - 1 ? copy.startQuiz : copy.continue}</a>`
+              : `<button class="button" disabled>${stepIndex === module.steps.length - 1 ? copy.startQuiz : copy.continue}</button>`
           }
         </div>
       </article>
 
       <aside class="scenario-panel">
-        <h2>Module Steps</h2>
+        <h2>${copy.moduleSteps}</h2>
         <ol class="step-list">
           ${module.steps
             .map(
@@ -617,7 +1229,7 @@ function renderModule(moduleId, stepIndex) {
             .join("")}
           <li>
             <span class="step-index">${module.steps.length + 1}</span>
-            <span>Mini quiz</span>
+            <span>${copy.miniQuiz}</span>
           </li>
         </ol>
       </aside>
@@ -625,6 +1237,12 @@ function renderModule(moduleId, stepIndex) {
   `;
 
   wireQuestionButtons(module.id);
+}
+
+function stripFeedbackLead(feedback) {
+  return feedback
+    .replace(/^(Good catch\.|Not quite\.)\s*/, "")
+    .replace(/^(זיהוי טוב\.|לא בדיוק\.)\s*/, "");
 }
 
 function renderQuestion(module, question, answerKey, selected) {
@@ -676,14 +1294,15 @@ function wireQuestionButtons(moduleId) {
 }
 
 function renderQuiz(module) {
-  const answers = progress[module.id]?.answers || {};
+  const copy = activeContent().copy;
+  const answers = progress[progressKey(module.id)]?.answers || {};
   const quizAnswers = module.quiz.map((_, index) => answers[`quiz-${index}`]);
   const allAnswered = quizAnswers.every((answer) => answer !== undefined);
   const score = module.quiz.reduce((total, question, index) => {
     return total + (Number(quizAnswers[index]) === question.answer ? 1 : 0);
   }, 0);
 
-  if (progress[module.id]?.completed) {
+  if (progress[progressKey(module.id)]?.completed) {
     renderCompletion(module);
     return;
   }
@@ -691,13 +1310,13 @@ function renderQuiz(module) {
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Mini quiz</p>
+        <p class="eyebrow">${copy.miniQuiz}</p>
         <h1>${module.title}</h1>
-        <p>Answer a few quick questions to complete the module.</p>
+        <p>${copy.quizBody}</p>
       </div>
       <section class="summary-panel">
         <span class="summary-number">${score}/${module.quiz.length}</span>
-        <p>Current score</p>
+        <p>${copy.currentScore}</p>
       </section>
     </header>
 
@@ -726,8 +1345,8 @@ function renderQuiz(module) {
         .join("")}
 
       <div class="lesson-actions">
-        <a class="button secondary" href="#/module/${module.id}/${module.steps.length - 1}">Back</a>
-        <button class="button" id="complete-module" ${allAnswered ? "" : "disabled"}>Complete module</button>
+        <a class="button secondary" href="#/module/${module.id}/${module.steps.length - 1}">${copy.back}</a>
+        <button class="button" id="complete-module" ${allAnswered ? "" : "disabled"}>${copy.completeModule}</button>
       </div>
     </section>
   `;
@@ -749,42 +1368,47 @@ function renderQuiz(module) {
 }
 
 function renderCompletion(module) {
-  const score = progress[module.id]?.score ?? 0;
+  const copy = activeContent().copy;
+  const score = progress[progressKey(module.id)]?.score ?? 0;
 
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Complete</p>
+        <p class="eyebrow">${copy.completeEyebrow}</p>
         <h1>${module.title}</h1>
-        <p>You completed the module. Keep these habits close during everyday work.</p>
+        <p>${copy.completeBody}</p>
       </div>
       <section class="summary-panel">
         <span class="summary-number">${score}/${module.quiz.length}</span>
-        <p>Quiz score</p>
+        <p>${copy.quizScore}</p>
       </section>
     </header>
 
     <section class="completion-panel">
-      <h2>Key Takeaways</h2>
+      <h2>${copy.keyTakeaways}</h2>
       <ul>
         ${module.takeaways.map((takeaway) => `<li>${takeaway}</li>`).join("")}
       </ul>
       <div class="lesson-actions">
-        <a class="button" href="#/training">Return to dashboard</a>
-        <a class="button secondary" href="#/resources">Review resources</a>
-        <a class="button secondary" href="#/module/${module.id}/0">Review module</a>
+        <a class="button" href="#/training">${copy.returnDashboard}</a>
+        <a class="button secondary" href="#/resources">${copy.reviewResources}</a>
+        <a class="button secondary" href="#/module/${module.id}/0">${copy.reviewModule}</a>
       </div>
     </section>
   `;
 }
 
 function renderProgress() {
+  const content = activeContent();
+  const copy = content.copy;
+  const modules = activeModules();
+
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Progress</p>
-        <h1>Your training progress</h1>
-        <p>Track completed modules and continue anything still in progress.</p>
+        <p class="eyebrow">${copy.progressEyebrow}</p>
+        <h1>${copy.progressTitle}</h1>
+        <p>${copy.progressBody}</p>
       </div>
     </header>
 
@@ -796,10 +1420,10 @@ function renderProgress() {
             <article class="result-row">
               <div>
                 <h2>${module.title}</h2>
-                <p>${state.status}${state.score !== undefined ? ` · Score ${state.score}/${module.quiz.length}` : ""}</p>
+                <p>${content.status[state.statusKey]}${state.score !== undefined ? ` · ${copy.score} ${state.score}/${module.quiz.length}` : ""}</p>
                 ${progressBar(state.percent)}
               </div>
-              <a class="button secondary" href="${state.completed ? `#/module/${module.id}/0` : nextModuleHref(module)}">${state.completed ? "Review" : "Continue"}</a>
+              <a class="button secondary" href="${state.completed ? `#/module/${module.id}/0` : nextModuleHref(module)}">${state.completed ? copy.review : copy.continue}</a>
             </article>
           `;
         })
@@ -809,12 +1433,15 @@ function renderProgress() {
 }
 
 function renderResources() {
+  const copy = activeContent().copy;
+  const resources = activeResources();
+
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Resources</p>
-        <h1>Quick references for everyday decisions</h1>
-        <p>Short checklists learners can return to after completing the training.</p>
+        <p class="eyebrow">${copy.resourcesEyebrow}</p>
+        <h1>${copy.resourcesTitle}</h1>
+        <p>${copy.resourcesBody}</p>
       </div>
     </header>
 
@@ -836,36 +1463,39 @@ function renderResources() {
 }
 
 function renderResults() {
+  const content = activeContent();
+  const copy = content.copy;
+  const modules = activeModules();
   const completed = modules.filter((module) => moduleProgress(module).completed).length;
   const averageScore = modules.reduce((total, module) => {
-    const score = progress[module.id]?.score;
+    const score = progress[progressKey(module.id)]?.score;
     return total + (typeof score === "number" ? score / module.quiz.length : 0);
   }, 0);
 
   app.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Demo admin view</p>
-        <h1>Local results summary</h1>
-        <p>This prototype stores progress in this browser only. A future backend can replace this view with organization-wide reporting.</p>
+        <p class="eyebrow">${copy.resultsEyebrow}</p>
+        <h1>${copy.resultsTitle}</h1>
+        <p>${copy.resultsBody}</p>
       </div>
       <section class="summary-panel">
         <span class="summary-number">${completed}/${modules.length}</span>
-        <p>Modules complete</p>
+        <p>${copy.modulesComplete}</p>
       </section>
     </header>
 
     <section class="results-list">
       <article class="result-row">
         <div>
-          <h2>Completion rate</h2>
-          <p>${Math.round((completed / modules.length) * 100)}% for this browser profile</p>
+          <h2>${copy.completionRate}</h2>
+          <p>${Math.round((completed / modules.length) * 100)}% ${copy.browserProfile}</p>
         </div>
       </article>
       <article class="result-row">
         <div>
-          <h2>Average quiz result</h2>
-          <p>${Math.round((averageScore / modules.length) * 100)}% across available module scores</p>
+          <h2>${copy.averageQuizResult}</h2>
+          <p>${Math.round((averageScore / modules.length) * 100)}% ${copy.acrossScores}</p>
         </div>
       </article>
       ${modules
@@ -875,9 +1505,9 @@ function renderResults() {
             <article class="result-row">
               <div>
                 <h2>${module.title}</h2>
-                <p>${state.status}${state.completedAt ? ` · Completed ${new Date(state.completedAt).toLocaleDateString()}` : ""}</p>
+                <p>${content.status[state.statusKey]}${state.completedAt ? ` · ${copy.completed} ${new Date(state.completedAt).toLocaleDateString(currentLang === "he" ? "he-IL" : "en-US")}` : ""}</p>
               </div>
-              <span class="score-pill">${state.score !== undefined ? `${state.score}/${module.quiz.length}` : "No score"}</span>
+              <span class="score-pill">${state.score !== undefined ? `${state.score}/${module.quiz.length}` : copy.noScore}</span>
             </article>
           `;
         })
@@ -887,8 +1517,9 @@ function renderResults() {
 }
 
 function progressBar(percent) {
+  const copy = activeContent().copy;
   return `
-    <div class="progress-track" aria-label="${percent}% complete">
+    <div class="progress-track" aria-label="${percent}% ${copy.percentComplete}">
       <div class="progress-fill" style="--progress: ${percent}%"></div>
     </div>
   `;
