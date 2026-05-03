@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A practical security training app for non-technical employees."
+    />
+    <title>Security Training</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <a class="brand" href="#/training" aria-label="Security Training home">
+          <span class="brand-mark" aria-hidden="true">ST</span>
+          <span>
+            <strong>Security Training</strong>
+            <small>Practical workplace habits</small>
+          </span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#/training" data-route="training">Training</a>
+          <a href="#/progress" data-route="progress">Progress</a>
+          <a href="#/resources" data-route="resources">Resources</a>
+          <a href="#/results" data-route="results">Results</a>
+        </nav>
+      </aside>
+
+      <main id="app" class="main-content" tabindex="-1"></main>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
