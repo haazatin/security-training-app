@@ -1468,9 +1468,6 @@ const contentByLanguage = {
       noScore: "No score",
       percentComplete: "complete",
       completeLessonsBeforeQuiz: "Complete the lesson steps before starting the quiz.",
-      resetProgress: "Reset local progress",
-      resetProgressBody: "Use this on shared machines or before a client walkthrough. It clears training progress stored in this browser only.",
-      resetProgressConfirm: "Clear local training progress for this browser?",
       moduleNotFound: "Module not found."
     }
   },
@@ -1535,9 +1532,6 @@ const contentByLanguage = {
       noScore: "אין ציון",
       percentComplete: "הושלם",
       completeLessonsBeforeQuiz: "השלימו את שלבי השיעור לפני התחלת הבוחן.",
-      resetProgress: "איפוס התקדמות מקומית",
-      resetProgressBody: "שימושי במחשבים משותפים או לפני הדגמה ללקוח. הפעולה מנקה רק את ההתקדמות שנשמרה בדפדפן הזה.",
-      resetProgressConfirm: "לנקות את התקדמות ההדרכה המקומית בדפדפן הזה?",
       moduleNotFound: "המודול לא נמצא."
     }
   }
@@ -2138,18 +2132,7 @@ function renderProgress() {
         .join("")}
     </section>
 
-    <section class="reset-panel">
-      <div>
-        <h2>${copy.resetProgress}</h2>
-        <p>${copy.resetProgressBody}</p>
-      </div>
-      <button class="button danger" id="reset-progress" type="button">${copy.resetProgress}</button>
-    </section>
   `;
-
-  document.querySelector("#reset-progress")?.addEventListener("click", () => {
-    if (window.confirm(copy.resetProgressConfirm)) resetLocalProgress();
-  });
 }
 
 function renderResources() {
