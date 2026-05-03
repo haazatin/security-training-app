@@ -995,7 +995,7 @@ function loadProgress() {
 
 function loadLanguage() {
   const stored = localStorage.getItem("security-training-language");
-  return stored === "he" ? "he" : "en";
+  return stored === "en" ? "en" : "he";
 }
 
 function activeContent() {
