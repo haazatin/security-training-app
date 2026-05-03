@@ -385,7 +385,7 @@ const modules = [
         title: "Report safely",
         body: [
           "Reporting a suspicious message helps protect other employees too.",
-          "Use the approved reporting button or mailbox instead of forwarding suspicious links and attachments casually."
+          "Contact IT or use the approved reporting mailbox instead of forwarding suspicious links and attachments casually."
         ],
         example: {
           type: "Chat draft",
@@ -668,7 +668,7 @@ const resources = [
   {
     title: "Report Suspicious Messages",
     items: [
-      "Use the company reporting button or forward to the approved security mailbox.",
+      "Contact IT or forward to the approved security mailbox.",
       "Do not reply to the sender.",
       "Do not forward suspicious attachments to group chats."
     ]
@@ -1089,7 +1089,7 @@ const modulesHe = [
         title: "מדווחים בצורה בטוחה",
         body: [
           "דיווח על הודעה חשודה עוזר להגן גם על עובדים אחרים.",
-          "השתמשו בכפתור או בתיבת הדיווח המאושרים במקום להעביר קישורים וקבצים חשודים באופן לא רשמי."
+          "פנו ל-IT או השתמשו בתיבת הדיווח המאושרת במקום להעביר קישורים וקבצים חשודים באופן לא רשמי."
         ],
         example: {
           type: "טיוטת צ'אט",
@@ -1372,7 +1372,7 @@ const resourcesHe = [
   {
     title: "דיווח על הודעות חשודות",
     items: [
-      "השתמשו בכפתור הדיווח של החברה או העבירו לתיבת האבטחה המאושרת.",
+      "פנו ל-IT או העבירו לתיבת האבטחה המאושרת.",
       "אל תשיבו לשולח.",
       "אל תעבירו קבצים מצורפים חשודים לצ'אטים קבוצתיים."
     ]
