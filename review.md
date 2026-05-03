@@ -6,6 +6,8 @@ This review captures issues found in the static training app and the recommended
 
 Findings 1-4 were implemented after the current live version was tagged as `stable-hebrew-default`.
 
+The client-ready implementation later removed the Results page entirely, so the previous average-score finding is retained below only as historical context.
+
 Remaining suggested next-phase items:
 
 - Expand the phishing and account safety modules to match the depth of the PII module.

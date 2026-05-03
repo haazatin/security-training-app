@@ -3,7 +3,7 @@ const modules = [
     id: "pii",
     title: "Handling PII and Company Data",
     description: "Learn how to recognize personal data and share it safely.",
-    durationMinutes: 6,
+    durationMinutes: 7,
     steps: [
       {
         title: "Treat personal data with care",
@@ -166,6 +166,47 @@ const modules = [
           ]
         },
         takeaway: "If data goes to the wrong place, report it quickly."
+      },
+      {
+        title: "Check before you send",
+        body: [
+          "A quick review before sharing can prevent most accidental exposure.",
+          "Check the recipient, remove unneeded fields, look for hidden tabs, and use approved sharing controls."
+        ],
+        example: {
+          type: "Spreadsheet review",
+          title: "Vendor export ready to send",
+          rows: [
+            ["Visible fields", "Names, emails, phone numbers"],
+            ["Internal notes", "Included"],
+            ["Hidden tabs", "2 tabs"],
+            ["Sharing method", "Attachment"]
+          ]
+        },
+        question: {
+          prompt: "What should you check before sending this spreadsheet?",
+          options: [
+            {
+              id: "a",
+              label: "Only that the file opens correctly",
+              correct: false,
+              feedback: "Not quite. You also need to check the recipient, unnecessary fields, hidden tabs, and sharing controls."
+            },
+            {
+              id: "b",
+              label: "Recipient, unnecessary fields, hidden tabs, and approved sharing controls",
+              correct: true,
+              feedback: "Good catch. A short checklist catches common ways personal data leaks before a file is sent."
+            },
+            {
+              id: "c",
+              label: "Nothing else if the vendor is waiting",
+              correct: false,
+              feedback: "Not quite. Urgency is a reason to be careful, not a reason to skip checks."
+            }
+          ]
+        },
+        takeaway: "Pause for a final data check before sending."
       }
     ],
     quiz: [
@@ -195,20 +236,30 @@ const modules = [
           "Send another message asking them to ignore it"
         ],
         answer: 0
+      },
+      {
+        prompt: "What should you check before sharing a spreadsheet externally?",
+        options: [
+          "Recipient, required fields, hidden tabs, and sharing controls",
+          "Only the file name",
+          "Only whether the vendor requested it"
+        ],
+        answer: 0
       }
     ],
     takeaways: [
       "Treat personal data as sensitive by default.",
       "Share the minimum data needed.",
       "Use approved tools and access controls.",
-      "Report accidental exposure quickly."
+      "Report accidental exposure quickly.",
+      "Check files before sending them externally."
     ]
   },
   {
     id: "phishing",
     title: "Phishing and Suspicious Messages",
     description: "Practice spotting suspicious emails, links, attachments, and urgent requests.",
-    durationMinutes: 5,
+    durationMinutes: 7,
     steps: [
       {
         title: "Pause before clicking",
@@ -249,6 +300,126 @@ const modules = [
           ]
         },
         takeaway: "Check sender, link, attachment, and request before acting."
+      },
+      {
+        title: "Check the sender and domain",
+        body: [
+          "Attackers often use lookalike names or domains that feel almost right at a glance.",
+          "Before opening a link, compare the sender with known company addresses and use the trusted company portal when possible."
+        ],
+        example: {
+          type: "Email preview",
+          title: "Salary document ready",
+          rows: [
+            ["From", "payroll@company-payroll.example"],
+            ["Subject", "Updated salary document"],
+            ["Message", "Sign in to view your updated salary document."]
+          ]
+        },
+        question: {
+          prompt: "What should you check before opening the link?",
+          options: [
+            {
+              id: "a",
+              label: "Whether the sender domain matches the real payroll service",
+              correct: true,
+              feedback: "Good catch. Lookalike domains are a common way to make fake messages feel familiar."
+            },
+            {
+              id: "b",
+              label: "Only whether the message uses your name",
+              correct: false,
+              feedback: "Not quite. Personalized messages can still be fake."
+            },
+            {
+              id: "c",
+              label: "Nothing, because payroll messages are important",
+              correct: false,
+              feedback: "Not quite. Important messages deserve a careful check before you click."
+            }
+          ]
+        },
+        takeaway: "Verify sender details before trusting a message."
+      },
+      {
+        title: "Avoid fake login pages and risky attachments",
+        body: [
+          "Unexpected links can lead to fake login pages that collect your password or MFA codes.",
+          "Unexpected attachments can also carry malware or hidden scripts. When in doubt, go to the service directly."
+        ],
+        example: {
+          type: "Mailbox alert",
+          title: "Your mailbox will be disabled",
+          rows: [
+            ["From", "it-support@example-security.net"],
+            ["Link text", "Review mailbox now"],
+            ["Request", "Sign in with company credentials"]
+          ]
+        },
+        question: {
+          prompt: "What is the safest action?",
+          options: [
+            {
+              id: "a",
+              label: "Use the link because it mentions your mailbox",
+              correct: false,
+              feedback: "Not quite. Fake login pages often mention familiar services."
+            },
+            {
+              id: "b",
+              label: "Go to the mailbox service directly or report the message",
+              correct: true,
+              feedback: "Good catch. Going directly avoids handing credentials to a fake page."
+            },
+            {
+              id: "c",
+              label: "Download the attachment first to see what it contains",
+              correct: false,
+              feedback: "Not quite. Unexpected attachments should be treated carefully before opening."
+            }
+          ]
+        },
+        takeaway: "Do not enter credentials from unexpected links."
+      },
+      {
+        title: "Report safely",
+        body: [
+          "Reporting a suspicious message helps protect other employees too.",
+          "Use the approved reporting button or mailbox instead of forwarding suspicious links and attachments casually."
+        ],
+        example: {
+          type: "Chat draft",
+          title: "Team channel",
+          rows: [
+            ["Message", "Did anyone else get this strange invoice email?"],
+            ["Attachment", "Invoice_Update.zip"],
+            ["Link", "Included in forwarded email"]
+          ]
+        },
+        question: {
+          prompt: "What should you do instead of forwarding it to a group chat?",
+          options: [
+            {
+              id: "a",
+              label: "Use the approved suspicious-message reporting process",
+              correct: true,
+              feedback: "Good catch. Reporting gets the message to the right team without spreading risky links or files."
+            },
+            {
+              id: "b",
+              label: "Reply to the sender and ask if it is real",
+              correct: false,
+              feedback: "Not quite. Replying can confirm your address is active and continue the attack."
+            },
+            {
+              id: "c",
+              label: "Forward it to everyone so they can inspect it",
+              correct: false,
+              feedback: "Not quite. Forwarding suspicious content can spread the risk."
+            }
+          ]
+        },
+        takeaway: "Report suspicious messages using the approved process."
       }
     ],
     quiz: [
@@ -290,10 +461,50 @@ const modules = [
     id: "accounts",
     title: "Passwords, MFA, and Account Safety",
     description: "Learn safer habits for passwords, MFA prompts, and unusual account activity.",
-    durationMinutes: 5,
+    durationMinutes: 7,
     steps: [
       {
-        title: "Protect account access",
+        title: "Use unique passwords",
+        body: [
+          "Reusing a personal password for work can turn one unrelated breach into a company account problem.",
+          "Use unique passwords for work systems, ideally stored in an approved password manager."
+        ],
+        example: {
+          type: "Password decision",
+          title: "New work system signup",
+          rows: [
+            ["Prompt", "Create a password"],
+            ["Idea", "Reuse a personal shopping password"],
+            ["Reason", "Easy to remember"]
+          ]
+        },
+        question: {
+          prompt: "What is the safer choice?",
+          options: [
+            {
+              id: "a",
+              label: "Reuse the personal password because it is familiar",
+              correct: false,
+              feedback: "Not quite. Reuse makes one stolen password useful in many places."
+            },
+            {
+              id: "b",
+              label: "Use a unique password, ideally in an approved password manager",
+              correct: true,
+              feedback: "Good catch. Unique passwords limit the damage if another service is breached."
+            },
+            {
+              id: "c",
+              label: "Use a shorter password so it is easier to type",
+              correct: false,
+              feedback: "Not quite. Convenience should not weaken account protection."
+            }
+          ]
+        },
+        takeaway: "Use unique passwords for work accounts."
+      },
+      {
+        title: "Use MFA carefully",
         body: [
           "A strong account habit is simple: use unique passwords, rely on MFA, and never approve a sign-in you did not start.",
           "Shared logins and reused passwords make one mistake spread across many systems."
@@ -332,6 +543,87 @@ const modules = [
           ]
         },
         takeaway: "Never approve an unexpected MFA prompt."
+      },
+      {
+        title: "Do not share accounts or passwords",
+        body: [
+          "Shared credentials remove accountability and can expose systems to people who should not have access.",
+          "If someone needs access, use the approved access request process."
+        ],
+        example: {
+          type: "Chat request",
+          title: "Quick login request",
+          rows: [
+            ["Colleague", "Can I borrow your login for five minutes?"],
+            ["Reason", "I need to finish a task quickly"],
+            ["System", "Customer records"]
+          ]
+        },
+        question: {
+          prompt: "What should you do?",
+          options: [
+            {
+              id: "a",
+              label: "Share it only for a few minutes",
+              correct: false,
+              feedback: "Not quite. Short-term sharing still creates account and data risk."
+            },
+            {
+              id: "b",
+              label: "Say no and use the approved access process",
+              correct: true,
+              feedback: "Good catch. Access should be granted through approved controls, not borrowed passwords."
+            },
+            {
+              id: "c",
+              label: "Send the password in a private chat",
+              correct: false,
+              feedback: "Not quite. Private chat is still not a safe place to share credentials."
+            }
+          ]
+        },
+        takeaway: "Do not share accounts or passwords."
+      },
+      {
+        title: "Respond to unusual account activity",
+        body: [
+          "Unusual sign-in alerts can mean someone is trying to use your account.",
+          "Report the activity quickly and follow the password reset or security process your company provides."
+        ],
+        example: {
+          type: "Security alert",
+          title: "New sign-in detected",
+          rows: [
+            ["App", "Company drive"],
+            ["Location", "Unknown country"],
+            ["Time", "During your commute"],
+            ["You started this?", "No"]
+          ]
+        },
+        question: {
+          prompt: "What should you do with this alert?",
+          options: [
+            {
+              id: "a",
+              label: "Ignore it unless files disappear",
+              correct: false,
+              feedback: "Not quite. Waiting can give an attacker more time."
+            },
+            {
+              id: "b",
+              label: "Report it and follow the account security process",
+              correct: true,
+              feedback: "Good catch. Fast reporting helps protect your account and company data."
+            },
+            {
+              id: "c",
+              label: "Approve future prompts so the alert stops appearing",
+              correct: false,
+              feedback: "Not quite. Approving prompts you did not start can let an attacker in."
+            }
+          ]
+        },
+        takeaway: "Report unusual account activity quickly."
       }
     ],
     quiz: [
@@ -415,7 +707,7 @@ const modulesHe = [
     id: "pii",
     title: "טיפול במידע אישי ובמידע חברה",
     description: "למדו לזהות מידע אישי ולשתף אותו בצורה בטוחה.",
-    durationMinutes: 6,
+    durationMinutes: 7,
     steps: [
       {
         title: "מתייחסים למידע אישי בזהירות",
@@ -578,6 +870,47 @@ const modulesHe = [
           ]
         },
         takeaway: "אם מידע נשלח למקום הלא נכון, מדווחים מהר."
+      },
+      {
+        title: "בודקים לפני שליחה",
+        body: [
+          "בדיקה קצרה לפני שיתוף יכולה למנוע את רוב החשיפות בטעות.",
+          "בדקו את הנמען, הסירו שדות לא נחוצים, חפשו גיליונות מוסתרים והשתמשו בבקרות שיתוף מאושרות."
+        ],
+        example: {
+          type: "בדיקת גיליון",
+          title: "ייצוא לספק מוכן לשליחה",
+          rows: [
+            ["שדות גלויים", "שמות, אימיילים, מספרי טלפון"],
+            ["הערות פנימיות", "כלולות"],
+            ["גיליונות מוסתרים", "2 גיליונות"],
+            ["שיטת שיתוף", "קובץ מצורף"]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לבדוק לפני שליחת הגיליון?",
+          options: [
+            {
+              id: "a",
+              label: "רק שהקובץ נפתח תקין",
+              correct: false,
+              feedback: "לא בדיוק. צריך לבדוק גם את הנמען, שדות מיותרים, גיליונות מוסתרים ובקרות שיתוף."
+            },
+            {
+              id: "b",
+              label: "נמען, שדות לא נחוצים, גיליונות מוסתרים ובקרות שיתוף מאושרות",
+              correct: true,
+              feedback: "זיהוי טוב. רשימת בדיקה קצרה תופסת דרכים נפוצות שבהן מידע אישי נחשף לפני שליחה."
+            },
+            {
+              id: "c",
+              label: "שום דבר נוסף אם הספק מחכה",
+              correct: false,
+              feedback: "לא בדיוק. דחיפות היא סיבה להיזהר, לא סיבה לדלג על בדיקות."
+            }
+          ]
+        },
+        takeaway: "עוצרים לבדיקת מידע אחרונה לפני שליחה."
       }
     ],
     quiz: [
@@ -607,20 +940,30 @@ const modulesHe = [
           "לשלוח הודעה נוספת שמבקשת להתעלם"
         ],
         answer: 0
+      },
+      {
+        prompt: "מה צריך לבדוק לפני שיתוף גיליון עם גורם חיצוני?",
+        options: [
+          "נמען, שדות נדרשים, גיליונות מוסתרים ובקרות שיתוף",
+          "רק את שם הקובץ",
+          "רק אם הספק ביקש את הקובץ"
+        ],
+        answer: 0
       }
     ],
     takeaways: [
       "מתייחסים למידע אישי כרגיש כברירת מחדל.",
       "משתפים את המינימום הדרוש.",
       "משתמשים בכלים מאושרים ובבקרת גישה.",
-      "מדווחים מהר על חשיפה בטעות."
+      "מדווחים מהר על חשיפה בטעות.",
+      "בודקים קבצים לפני שליחה חיצונית."
     ]
   },
   {
     id: "phishing",
     title: "פישינג והודעות חשודות",
     description: "תרגלו זיהוי אימיילים חשודים, קישורים, קבצים מצורפים ובקשות דחופות.",
-    durationMinutes: 5,
+    durationMinutes: 7,
     steps: [
       {
         title: "עוצרים לפני שלוחצים",
@@ -661,6 +1004,126 @@ const modulesHe = [
           ]
         },
         takeaway: "בודקים שולח, קישור, קובץ מצורף ובקשה לפני פעולה."
+      },
+      {
+        title: "בודקים את השולח והדומיין",
+        body: [
+          "תוקפים משתמשים לעיתים בשמות או דומיינים דומים שנראים כמעט נכונים במבט ראשון.",
+          "לפני פתיחת קישור, השוו את כתובת השולח לכתובות החברה המוכרות והעדיפו כניסה דרך הפורטל המוכר."
+        ],
+        example: {
+          type: "תצוגת אימייל",
+          title: "מסמך שכר מוכן",
+          rows: [
+            ["מאת", "payroll@company-payroll.example"],
+            ["נושא", "מסמך שכר מעודכן"],
+            ["הודעה", "התחברו כדי לצפות במסמך השכר המעודכן."]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לבדוק לפני פתיחת הקישור?",
+          options: [
+            {
+              id: "a",
+              label: "האם דומיין השולח תואם לשירות השכר האמיתי",
+              correct: true,
+              feedback: "זיהוי טוב. דומיינים דומים הם דרך נפוצה לגרום להודעות מזויפות להרגיש מוכרות."
+            },
+            {
+              id: "b",
+              label: "רק אם ההודעה משתמשת בשם שלכם",
+              correct: false,
+              feedback: "לא בדיוק. גם הודעות אישיות יכולות להיות מזויפות."
+            },
+            {
+              id: "c",
+              label: "שום דבר, כי הודעות שכר הן חשובות",
+              correct: false,
+              feedback: "לא בדיוק. הודעות חשובות מצדיקות בדיקה זהירה לפני לחיצה."
+            }
+          ]
+        },
+        takeaway: "מאמתים פרטי שולח לפני שסומכים על הודעה."
+      },
+      {
+        title: "נזהרים מדפי התחברות מזויפים וקבצים מסוכנים",
+        body: [
+          "קישורים לא צפויים יכולים להוביל לדפי התחברות מזויפים שאוספים סיסמאות או קודי MFA.",
+          "גם קבצים מצורפים לא צפויים יכולים להכיל נוזקות או סקריפטים מוסתרים. כשיש ספק, נכנסים לשירות ישירות."
+        ],
+        example: {
+          type: "התראת תיבת דואר",
+          title: "תיבת הדואר תושבת",
+          rows: [
+            ["מאת", "it-support@example-security.net"],
+            ["טקסט קישור", "בדיקת תיבה עכשיו"],
+            ["בקשה", "התחברות עם פרטי חברה"]
+          ]
+        },
+        question: {
+          prompt: "מה הפעולה הבטוחה ביותר?",
+          options: [
+            {
+              id: "a",
+              label: "להשתמש בקישור כי הוא מזכיר את תיבת הדואר",
+              correct: false,
+              feedback: "לא בדיוק. דפי התחברות מזויפים מזכירים לעיתים שירותים מוכרים."
+            },
+            {
+              id: "b",
+              label: "להיכנס לשירות הדואר ישירות או לדווח על ההודעה",
+              correct: true,
+              feedback: "זיהוי טוב. כניסה ישירה מונעת מסירת פרטי התחברות לדף מזויף."
+            },
+            {
+              id: "c",
+              label: "להוריד קודם את הקובץ המצורף כדי לראות מה יש בו",
+              correct: false,
+              feedback: "לא בדיוק. קבצים מצורפים לא צפויים דורשים זהירות לפני פתיחה."
+            }
+          ]
+        },
+        takeaway: "לא מזינים פרטי התחברות מקישורים לא צפויים."
+      },
+      {
+        title: "מדווחים בצורה בטוחה",
+        body: [
+          "דיווח על הודעה חשודה עוזר להגן גם על עובדים אחרים.",
+          "השתמשו בכפתור או בתיבת הדיווח המאושרים במקום להעביר קישורים וקבצים חשודים באופן לא רשמי."
+        ],
+        example: {
+          type: "טיוטת צ'אט",
+          title: "ערוץ צוות",
+          rows: [
+            ["הודעה", "עוד מישהו קיבל את אימייל החשבונית המוזר הזה?"],
+            ["קובץ מצורף", "Invoice_Update.zip"],
+            ["קישור", "כלול באימייל המועבר"]
+          ]
+        },
+        question: {
+          prompt: "מה כדאי לעשות במקום להעביר את ההודעה לצ'אט קבוצתי?",
+          options: [
+            {
+              id: "a",
+              label: "להשתמש בתהליך הדיווח המאושר להודעות חשודות",
+              correct: true,
+              feedback: "זיהוי טוב. דיווח מעביר את ההודעה לצוות הנכון בלי להפיץ קישורים או קבצים מסוכנים."
+            },
+            {
+              id: "b",
+              label: "להשיב לשולח ולשאול אם זה אמיתי",
+              correct: false,
+              feedback: "לא בדיוק. מענה יכול לאשר שהכתובת שלכם פעילה ולהמשיך את התקיפה."
+            },
+            {
+              id: "c",
+              label: "להעביר לכולם כדי שיוכלו לבדוק",
+              correct: false,
+              feedback: "לא בדיוק. העברת תוכן חשוד יכולה להפיץ את הסיכון."
+            }
+          ]
+        },
+        takeaway: "מדווחים על הודעות חשודות בתהליך המאושר."
       }
     ],
     quiz: [
@@ -702,10 +1165,50 @@ const modulesHe = [
     id: "accounts",
     title: "סיסמאות, MFA ובטיחות חשבונות",
     description: "למדו הרגלים בטוחים יותר לסיסמאות, אישורי MFA ופעילות חשבון חריגה.",
-    durationMinutes: 5,
+    durationMinutes: 7,
     steps: [
       {
-        title: "מגנים על גישה לחשבון",
+        title: "משתמשים בסיסמאות ייחודיות",
+        body: [
+          "שימוש חוזר בסיסמה אישית לעבודה יכול להפוך פריצה לשירות לא קשור לבעיה בחשבון החברה.",
+          "השתמשו בסיסמאות ייחודיות למערכות עבודה, עדיף במנהל סיסמאות מאושר."
+        ],
+        example: {
+          type: "החלטת סיסמה",
+          title: "הרשמה למערכת עבודה חדשה",
+          rows: [
+            ["בקשה", "יצירת סיסמה"],
+            ["רעיון", "שימוש חוזר בסיסמת קניות אישית"],
+            ["סיבה", "קל לזכור"]
+          ]
+        },
+        question: {
+          prompt: "מה הבחירה הבטוחה יותר?",
+          options: [
+            {
+              id: "a",
+              label: "להשתמש שוב בסיסמה האישית כי היא מוכרת",
+              correct: false,
+              feedback: "לא בדיוק. שימוש חוזר הופך סיסמה שנגנבה במקום אחד לשימושית בכמה מקומות."
+            },
+            {
+              id: "b",
+              label: "להשתמש בסיסמה ייחודית, עדיף במנהל סיסמאות מאושר",
+              correct: true,
+              feedback: "זיהוי טוב. סיסמאות ייחודיות מצמצמות נזק אם שירות אחר נפרץ."
+            },
+            {
+              id: "c",
+              label: "להשתמש בסיסמה קצרה יותר כדי שיהיה קל להקליד",
+              correct: false,
+              feedback: "לא בדיוק. נוחות לא צריכה להחליש את הגנת החשבון."
+            }
+          ]
+        },
+        takeaway: "משתמשים בסיסמאות ייחודיות לחשבונות עבודה."
+      },
+      {
+        title: "משתמשים ב-MFA בזהירות",
         body: [
           "הרגל חשבון טוב הוא פשוט: משתמשים בסיסמאות ייחודיות, נעזרים ב-MFA, ולא מאשרים התחברות שלא יזמתם.",
           "חשבונות משותפים ושימוש חוזר בסיסמאות גורמים לטעות אחת להתפשט לכמה מערכות."
@@ -744,6 +1247,87 @@ const modulesHe = [
           ]
         },
         takeaway: "לא מאשרים בקשת MFA שלא יזמתם."
+      },
+      {
+        title: "לא משתפים חשבונות או סיסמאות",
+        body: [
+          "שיתוף פרטי התחברות פוגע באחריות אישית ועלול לחשוף מערכות לאנשים שלא אמורים לקבל גישה.",
+          "אם מישהו צריך גישה, משתמשים בתהליך בקשת הגישה המאושר."
+        ],
+        example: {
+          type: "בקשת צ'אט",
+          title: "בקשת התחברות מהירה",
+          rows: [
+            ["עמית", "אפשר להשתמש בלוגין שלך לחמש דקות?"],
+            ["סיבה", "אני צריך לסיים משימה מהר"],
+            ["מערכת", "רשומות לקוחות"]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לעשות?",
+          options: [
+            {
+              id: "a",
+              label: "לשתף רק לכמה דקות",
+              correct: false,
+              feedback: "לא בדיוק. גם שיתוף קצר יוצר סיכון לחשבון ולמידע."
+            },
+            {
+              id: "b",
+              label: "לסרב ולהשתמש בתהליך הגישה המאושר",
+              correct: true,
+              feedback: "זיהוי טוב. גישה צריכה להינתן דרך בקרות מאושרות, לא דרך סיסמאות מושאלות."
+            },
+            {
+              id: "c",
+              label: "לשלוח את הסיסמה בצ'אט פרטי",
+              correct: false,
+              feedback: "לא בדיוק. צ'אט פרטי עדיין אינו מקום בטוח לשיתוף פרטי התחברות."
+            }
+          ]
+        },
+        takeaway: "לא משתפים חשבונות או סיסמאות."
+      },
+      {
+        title: "מגיבים לפעילות חשבון חריגה",
+        body: [
+          "התראות התחברות חריגות יכולות להעיד שמישהו מנסה להשתמש בחשבון שלכם.",
+          "דווחו מהר ופעלו לפי תהליך איפוס הסיסמה או האבטחה שהחברה מספקת."
+        ],
+        example: {
+          type: "התראת אבטחה",
+          title: "זוהתה התחברות חדשה",
+          rows: [
+            ["אפליקציה", "כונן חברה"],
+            ["מיקום", "מדינה לא מוכרת"],
+            ["זמן", "בזמן הנסיעה שלכם"],
+            ["אתם יזמתם?", "לא"]
+          ]
+        },
+        question: {
+          prompt: "מה צריך לעשות עם ההתראה הזאת?",
+          options: [
+            {
+              id: "a",
+              label: "להתעלם אלא אם קבצים ייעלמו",
+              correct: false,
+              feedback: "לא בדיוק. המתנה יכולה לתת לתוקף יותר זמן."
+            },
+            {
+              id: "b",
+              label: "לדווח ולפעול לפי תהליך אבטחת החשבון",
+              correct: true,
+              feedback: "זיהוי טוב. דיווח מהיר עוזר להגן על החשבון ועל מידע החברה."
+            },
+            {
+              id: "c",
+              label: "לאשר בקשות עתידיות כדי שההתראה תפסיק להופיע",
+              correct: false,
+              feedback: "לא בדיוק. אישור בקשות שלא יזמתם יכול לאפשר לתוקף להיכנס."
+            }
+          ]
+        },
+        takeaway: "מדווחים מהר על פעילות חשבון חריגה."
       }
     ],
     quiz: [
@@ -832,8 +1416,7 @@ const contentByLanguage = {
     nav: {
       training: "Training",
       progress: "Progress",
-      resources: "Resources",
-      results: "Results"
+      resources: "Resources"
     },
     status: {
       notStarted: "Not started",
@@ -873,26 +1456,21 @@ const contentByLanguage = {
       returnDashboard: "Return to dashboard",
       reviewResources: "Review resources",
       reviewModule: "Review module",
+      retakeQuiz: "Retake quiz",
       progressEyebrow: "Progress",
       progressTitle: "Your training progress",
-      progressBody: "Track completed modules and continue anything still in progress.",
+      progressBody: "Track completed modules and continue anything still in progress. Progress is saved only in this browser.",
       score: "Score",
       resourcesEyebrow: "Resources",
       resourcesTitle: "Quick references for everyday decisions",
       resourcesBody: "Short checklists learners can return to after completing the training.",
-      resultsEyebrow: "Demo admin view",
-      resultsTitle: "Local results summary",
-      resultsBody:
-        "This prototype stores progress in this browser only. A future backend can replace this view with organization-wide reporting.",
-      modulesComplete: "Modules complete",
-      completionRate: "Completion rate",
-      browserProfile: "for this browser profile",
-      averageQuizResult: "Average quiz result",
-      acrossScores: "across available module scores",
       completed: "Completed",
       noScore: "No score",
       percentComplete: "complete",
       completeLessonsBeforeQuiz: "Complete the lesson steps before starting the quiz.",
+      resetProgress: "Reset local progress",
+      resetProgressBody: "Use this on shared machines or before a client walkthrough. It clears training progress stored in this browser only.",
+      resetProgressConfirm: "Clear local training progress for this browser?",
       moduleNotFound: "Module not found."
     }
   },
@@ -905,8 +1483,7 @@ const contentByLanguage = {
     nav: {
       training: "הדרכה",
       progress: "התקדמות",
-      resources: "משאבים",
-      results: "תוצאות"
+      resources: "משאבים"
     },
     status: {
       notStarted: "טרם התחיל",
@@ -946,26 +1523,21 @@ const contentByLanguage = {
       returnDashboard: "חזרה ללוח ההדרכה",
       reviewResources: "סקירת משאבים",
       reviewModule: "סקירת המודול",
+      retakeQuiz: "ביצוע הבוחן מחדש",
       progressEyebrow: "התקדמות",
       progressTitle: "התקדמות ההדרכה שלכם",
-      progressBody: "עקבו אחרי מודולים שהושלמו והמשיכו כל דבר שעדיין בתהליך.",
+      progressBody: "עקבו אחרי מודולים שהושלמו והמשיכו כל דבר שעדיין בתהליך. ההתקדמות נשמרת בדפדפן הזה בלבד.",
       score: "ציון",
       resourcesEyebrow: "משאבים",
       resourcesTitle: "הפניות קצרות להחלטות יומיומיות",
       resourcesBody: "רשימות בדיקה קצרות שאפשר לחזור אליהן אחרי ההדרכה.",
-      resultsEyebrow: "תצוגת מנהל לדוגמה",
-      resultsTitle: "סיכום תוצאות מקומי",
-      resultsBody:
-        "אב הטיפוס שומר התקדמות בדפדפן הזה בלבד. בעתיד אפשר להחליף תצוגה זו בדוחות ארגוניים מבוססי שרת.",
-      modulesComplete: "מודולים הושלמו",
-      completionRate: "שיעור השלמה",
-      browserProfile: "בפרופיל הדפדפן הזה",
-      averageQuizResult: "ציון בוחן ממוצע",
-      acrossScores: "על בסיס ציוני המודולים הזמינים",
       completed: "הושלם",
       noScore: "אין ציון",
       percentComplete: "הושלם",
       completeLessonsBeforeQuiz: "השלימו את שלבי השיעור לפני התחלת הבוחן.",
+      resetProgress: "איפוס התקדמות מקומית",
+      resetProgressBody: "שימושי במחשבים משותפים או לפני הדגמה ללקוח. הפעולה מנקה רק את ההתקדמות שנשמרה בדפדפן הזה.",
+      resetProgressConfirm: "לנקות את התקדמות ההדרכה המקומית בדפדפן הזה?",
       moduleNotFound: "המודול לא נמצא."
     }
   }
@@ -1066,7 +1638,7 @@ function saveProgress() {
 function moduleProgress(module) {
   const stored = progress[progressKey(module.id)] || {};
   const answered = stored.answers ? Object.keys(stored.answers).length : 0;
-  const completed = Boolean(stored.completed);
+  const completed = isModuleComplete(module, stored);
   const percent = completed
     ? 100
     : Math.round((answered / (module.steps.length + module.quiz.length)) * 100);
@@ -1078,6 +1650,15 @@ function moduleProgress(module) {
     percent,
     statusKey: completed ? "complete" : answered > 0 ? "inProgress" : "notStarted"
   };
+}
+
+function isModuleComplete(module, stored) {
+  const answers = stored.answers || {};
+  return (
+    Boolean(stored.completed) &&
+    module.steps.every((_, index) => answers[`step-${index}`] !== undefined) &&
+    module.quiz.every((_, index) => answers[`quiz-${index}`] !== undefined)
+  );
 }
 
 function nextModuleHref(module) {
@@ -1113,6 +1694,33 @@ function completeModule(module, score) {
   saveProgress();
 }
 
+function retakeQuiz(module) {
+  const keyId = progressKey(module.id);
+  const moduleProgressRecord = progress[keyId];
+  if (!moduleProgressRecord?.answers) return;
+
+  Object.keys(moduleProgressRecord.answers).forEach((answerKey) => {
+    if (answerKey.startsWith("quiz-")) delete moduleProgressRecord.answers[answerKey];
+  });
+
+  delete moduleProgressRecord.completed;
+  delete moduleProgressRecord.score;
+  delete moduleProgressRecord.completedAt;
+  saveProgress();
+  const quizHash = `#/module/${module.id}/${module.steps.length}`;
+  if (window.location.hash === quizHash) {
+    renderQuiz(module);
+  } else {
+    window.location.hash = quizHash;
+  }
+}
+
+function resetLocalProgress() {
+  progress = {};
+  saveProgress();
+  render();
+}
+
 function getRoute() {
   const raw = window.location.hash.replace(/^#\/?/, "");
   const [page, id, step] = raw.split("/");
@@ -1129,13 +1737,22 @@ function getRoute() {
 function render() {
   const route = getRoute();
   updateChrome();
-  setActiveNav(route.page);
 
-  if (route.page === "module") return renderModule(route.id, route.step);
-  if (route.page === "progress") return renderProgress();
-  if (route.page === "resources") return renderResources();
-  if (route.page === "results") return renderResults();
-  renderDashboard();
+  if (route.page === "module") {
+    setActiveNav("module");
+    renderModule(route.id, route.step);
+  } else if (route.page === "progress") {
+    setActiveNav("progress");
+    renderProgress();
+  } else if (route.page === "resources") {
+    setActiveNav("resources");
+    renderResources();
+  } else {
+    setActiveNav("training");
+    renderDashboard();
+  }
+
+  app.focus({ preventScroll: true });
 }
 
 function updateChrome() {
@@ -1155,7 +1772,13 @@ function updateChrome() {
 
 function setActiveNav(page) {
   document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.classList.toggle("active", link.dataset.route === page || (page === "module" && link.dataset.route === "training"));
+    const active = link.dataset.route === page || (page === "module" && link.dataset.route === "training");
+    link.classList.toggle("active", active);
+    if (active) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
   });
 }
 
@@ -1271,7 +1894,7 @@ function renderModule(moduleId, stepIndex) {
         ${renderQuestion(module, step.question, answerKey, selected)}
         ${
           selectedOption
-            ? `<div class="feedback ${selectedOption.correct ? "correct" : "incorrect"}">
+            ? `<div class="feedback ${selectedOption.correct ? "correct" : "incorrect"}" role="status" aria-live="polite">
                 <strong>${selectedOption.correct ? copy.goodCatch : copy.notQuite}</strong>
                 ${stripFeedbackLead(selectedOption.feedback)}
               </div>`
@@ -1382,7 +2005,7 @@ function renderQuiz(module) {
     return;
   }
 
-  if (progress[progressKey(module.id)]?.completed) {
+  if (isModuleComplete(module, progress[progressKey(module.id)] || {})) {
     renderCompletion(module);
     return;
   }
@@ -1473,9 +2096,14 @@ function renderCompletion(module) {
         <a class="button" href="#/training">${copy.returnDashboard}</a>
         <a class="button secondary" href="#/resources">${copy.reviewResources}</a>
         <a class="button secondary" href="#/module/${module.id}/0">${copy.reviewModule}</a>
+        <button class="button secondary" id="retake-quiz" type="button">${copy.retakeQuiz}</button>
       </div>
     </section>
   `;
+
+  document.querySelector("#retake-quiz")?.addEventListener("click", () => {
+    retakeQuiz(module);
+  });
 }
 
 function renderProgress() {
@@ -1492,12 +2120,12 @@ function renderProgress() {
       </div>
     </header>
 
-    <section class="results-list">
+    <section class="progress-list">
       ${modules
         .map((module) => {
           const state = moduleProgress(module);
           return `
-            <article class="result-row">
+            <article class="progress-row">
               <div>
                 <h2>${module.title}</h2>
                 <p>${content.status[state.statusKey]}${state.score !== undefined ? ` · ${copy.score} ${state.score}/${module.quiz.length}` : ""}</p>
@@ -1509,7 +2137,19 @@ function renderProgress() {
         })
         .join("")}
     </section>
+
+    <section class="reset-panel">
+      <div>
+        <h2>${copy.resetProgress}</h2>
+        <p>${copy.resetProgressBody}</p>
+      </div>
+      <button class="button danger" id="reset-progress" type="button">${copy.resetProgress}</button>
+    </section>
   `;
+
+  document.querySelector("#reset-progress")?.addEventListener("click", () => {
+    if (window.confirm(copy.resetProgressConfirm)) resetLocalProgress();
+  });
 }
 
 function renderResources() {
@@ -1537,64 +2177,6 @@ function renderResources() {
             </article>
           `
         )
-        .join("")}
-    </section>
-  `;
-}
-
-function renderResults() {
-  const content = activeContent();
-  const copy = content.copy;
-  const modules = activeModules();
-  const completed = modules.filter((module) => moduleProgress(module).completed).length;
-  const scoredModules = modules.filter((module) => typeof progress[progressKey(module.id)]?.score === "number");
-  const averageScore =
-    scoredModules.length > 0
-      ? scoredModules.reduce((total, module) => {
-          const score = progress[progressKey(module.id)].score;
-          return total + score / module.quiz.length;
-        }, 0) / scoredModules.length
-      : null;
-
-  app.innerHTML = `
-    <header class="page-header">
-      <div>
-        <p class="eyebrow">${copy.resultsEyebrow}</p>
-        <h1>${copy.resultsTitle}</h1>
-        <p>${copy.resultsBody}</p>
-      </div>
-      <section class="summary-panel">
-        <span class="summary-number">${completed}/${modules.length}</span>
-        <p>${copy.modulesComplete}</p>
-      </section>
-    </header>
-
-    <section class="results-list">
-      <article class="result-row">
-        <div>
-          <h2>${copy.completionRate}</h2>
-          <p>${Math.round((completed / modules.length) * 100)}% ${copy.browserProfile}</p>
-        </div>
-      </article>
-      <article class="result-row">
-        <div>
-          <h2>${copy.averageQuizResult}</h2>
-          <p>${averageScore === null ? copy.noScore : `${Math.round(averageScore * 100)}% ${copy.acrossScores}`}</p>
-        </div>
-      </article>
-      ${modules
-        .map((module) => {
-          const state = moduleProgress(module);
-          return `
-            <article class="result-row">
-              <div>
-                <h2>${module.title}</h2>
-                <p>${content.status[state.statusKey]}${state.completedAt ? ` · ${copy.completed} ${new Date(state.completedAt).toLocaleDateString(currentLang === "he" ? "he-IL" : "en-US")}` : ""}</p>
-              </div>
-              <span class="score-pill">${state.score !== undefined ? `${state.score}/${module.quiz.length}` : copy.noScore}</span>
-            </article>
-          `;
-        })
         .join("")}
     </section>
   `;

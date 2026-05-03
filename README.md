@@ -1,21 +1,34 @@
 # Security Training Web App
 
-A static, client-deliverable security training app for non-technical employees.
+A static, client-deliverable security awareness training app for non-technical employees.
 
-The app teaches practical workplace security habits through short modules, realistic scenarios, immediate feedback, mini quizzes, progress tracking, and quick-reference resources.
+The app teaches practical workplace security habits through short lessons, realistic scenarios, immediate feedback, mini quizzes, local progress tracking, and quick-reference resources.
 
 ## What Is Included
 
 - Learner dashboard
 - Three training modules
 - English and Hebrew language modes
-- Scenario-based questions
+- Right-to-left layout for Hebrew
+- Scenario-based lesson questions
 - Immediate answer feedback
 - Mini quizzes
+- Quiz retry flow
 - Completion tracking in `localStorage`
+- Progress page with local reset action
 - Resources page
-- Demo results view
 - GitHub Pages deployment workflow
+
+## What Is Not Included
+
+- Backend
+- Login or user management
+- Database
+- Organization-wide reporting
+- Admin dashboard
+- Compliance-grade completion records
+
+Progress is saved only in the learner's current browser.
 
 ## Run Locally
 
@@ -30,6 +43,10 @@ Then open:
 ```text
 http://localhost:4173
 ```
+
+## Reset Progress
+
+Use the reset action on the **Progress** page. It clears local training progress for the current browser only.
 
 ## Deploy as Static Files
 
@@ -63,9 +80,9 @@ GitHub Pages will publish the static site automatically.
 
 ## Language Support
 
-The app includes English and Hebrew. Hebrew uses the same training flow and translated content, presented right to left.
+The app defaults to Hebrew for new visitors. Learners can switch between Hebrew and English from the sidebar. Their selected language is stored in `localStorage`.
 
-Learners can switch language from the sidebar. Their selected language is stored in `localStorage`.
+Progress is shared across languages, so completing a module in one language also marks it complete in the other.
 
 ## Edit Training Content
 
