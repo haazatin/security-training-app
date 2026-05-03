@@ -892,6 +892,7 @@ const contentByLanguage = {
       completed: "Completed",
       noScore: "No score",
       percentComplete: "complete",
+      completeLessonsBeforeQuiz: "Complete the lesson steps before starting the quiz.",
       moduleNotFound: "Module not found."
     }
   },
@@ -964,6 +965,7 @@ const contentByLanguage = {
       completed: "הושלם",
       noScore: "אין ציון",
       percentComplete: "הושלם",
+      completeLessonsBeforeQuiz: "השלימו את שלבי השיעור לפני התחלת הבוחן.",
       moduleNotFound: "המודול לא נמצא."
     }
   }
@@ -973,8 +975,9 @@ const storageKey = "security-training-progress-v1";
 const app = document.querySelector("#app");
 const languageToggle = document.querySelector("#languageToggle");
 
-let progress = loadProgress();
 let currentLang = loadLanguage();
+let progress = migrateProgress(loadProgress());
+saveProgress();
 
 window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", render);
@@ -998,6 +1001,48 @@ function loadLanguage() {
   return stored === "en" ? "en" : "he";
 }
 
+function migrateProgress(storedProgress) {
+  const migrated = { ...storedProgress };
+
+  modules.forEach((module) => {
+    const merged = mergeProgressRecords(
+      migrated[module.id],
+      migrated[`en:${module.id}`],
+      migrated[`he:${module.id}`]
+    );
+
+    if (merged) migrated[module.id] = merged;
+    delete migrated[`en:${module.id}`];
+    delete migrated[`he:${module.id}`];
+  });
+
+  return migrated;
+}
+
+function mergeProgressRecords(...records) {
+  const usableRecords = records.filter(Boolean);
+  if (!usableRecords.length) return null;
+
+  return usableRecords.reduce((merged, record) => {
+    const next = { ...merged, ...record };
+    const mergedScore = typeof merged.score === "number" ? merged.score : null;
+    const recordScore = typeof record.score === "number" ? record.score : null;
+
+    next.answers = {
+      ...(merged.answers || {}),
+      ...(record.answers || {})
+    };
+    next.completed = Boolean(merged.completed || record.completed);
+
+    if (mergedScore !== null || recordScore !== null) {
+      next.score = Math.max(mergedScore ?? 0, recordScore ?? 0);
+    }
+
+    next.completedAt = merged.completedAt || record.completedAt;
+    return next;
+  }, {});
+}
+
 function activeContent() {
   return contentByLanguage[currentLang];
 }
@@ -1011,7 +1056,7 @@ function activeResources() {
 }
 
 function progressKey(moduleId) {
-  return `${currentLang}:${moduleId}`;
+  return moduleId;
 }
 
 function saveProgress() {
@@ -1036,11 +1081,19 @@ function moduleProgress(module) {
 }
 
 function nextModuleHref(module) {
-  const answers = progress[progressKey(module.id)]?.answers || {};
-  const firstOpenStep = module.steps.findIndex((_, index) => !answers[`step-${index}`]);
+  const firstOpenStep = firstIncompleteStepIndex(module);
 
   if (firstOpenStep >= 0) return `#/module/${module.id}/${firstOpenStep}`;
   return `#/module/${module.id}/${module.steps.length}`;
+}
+
+function firstIncompleteStepIndex(module) {
+  const answers = progress[progressKey(module.id)]?.answers || {};
+  return module.steps.findIndex((_, index) => !answers[`step-${index}`]);
+}
+
+function allLessonStepsComplete(module) {
+  return firstIncompleteStepIndex(module) === -1;
 }
 
 function setAnswer(moduleId, key, answer) {
@@ -1063,10 +1116,13 @@ function completeModule(module, score) {
 function getRoute() {
   const raw = window.location.hash.replace(/^#\/?/, "");
   const [page, id, step] = raw.split("/");
+  const rawStep = step ?? "0";
+  const parsedStep = Number(rawStep);
+
   return {
     page: page || "training",
     id,
-    step: Number.parseInt(step || "0", 10)
+    step: Number.isInteger(parsedStep) ? parsedStep : NaN
   };
 }
 
@@ -1075,7 +1131,7 @@ function render() {
   updateChrome();
   setActiveNav(route.page);
 
-  if (route.page === "module") return renderModule(route.id, route.step || 0);
+  if (route.page === "module") return renderModule(route.id, route.step);
   if (route.page === "progress") return renderProgress();
   if (route.page === "resources") return renderResources();
   if (route.page === "results") return renderResults();
@@ -1165,7 +1221,24 @@ function renderModule(moduleId, stepIndex) {
     return;
   }
 
-  if (stepIndex >= module.steps.length) {
+  if (!Number.isInteger(stepIndex) || stepIndex < 0) {
+    window.location.hash = `#/module/${module.id}/0`;
+    return;
+  }
+
+  if (stepIndex > module.steps.length) {
+    window.location.hash = `#/module/${module.id}/${module.steps.length}`;
+    return;
+  }
+
+  if (stepIndex === module.steps.length) {
+    const firstOpenStep = firstIncompleteStepIndex(module);
+
+    if (firstOpenStep >= 0) {
+      window.location.hash = `#/module/${module.id}/${firstOpenStep}`;
+      return;
+    }
+
     renderQuiz(module);
     return;
   }
@@ -1302,6 +1375,13 @@ function renderQuiz(module) {
     return total + (Number(quizAnswers[index]) === question.answer ? 1 : 0);
   }, 0);
 
+  if (!allLessonStepsComplete(module)) {
+    const firstOpenStep = firstIncompleteStepIndex(module);
+    app.innerHTML = `<section class="empty-state">${copy.completeLessonsBeforeQuiz}</section>`;
+    window.location.hash = `#/module/${module.id}/${Math.max(firstOpenStep, 0)}`;
+    return;
+  }
+
   if (progress[progressKey(module.id)]?.completed) {
     renderCompletion(module);
     return;
@@ -1361,7 +1441,7 @@ function renderQuiz(module) {
   });
 
   document.querySelector("#complete-module")?.addEventListener("click", () => {
-    if (!allAnswered) return;
+    if (!allAnswered || !allLessonStepsComplete(module)) return;
     completeModule(module, score);
     renderCompletion(module);
   });
@@ -1467,10 +1547,14 @@ function renderResults() {
   const copy = content.copy;
   const modules = activeModules();
   const completed = modules.filter((module) => moduleProgress(module).completed).length;
-  const averageScore = modules.reduce((total, module) => {
-    const score = progress[progressKey(module.id)]?.score;
-    return total + (typeof score === "number" ? score / module.quiz.length : 0);
-  }, 0);
+  const scoredModules = modules.filter((module) => typeof progress[progressKey(module.id)]?.score === "number");
+  const averageScore =
+    scoredModules.length > 0
+      ? scoredModules.reduce((total, module) => {
+          const score = progress[progressKey(module.id)].score;
+          return total + score / module.quiz.length;
+        }, 0) / scoredModules.length
+      : null;
 
   app.innerHTML = `
     <header class="page-header">
@@ -1495,7 +1579,7 @@ function renderResults() {
       <article class="result-row">
         <div>
           <h2>${copy.averageQuizResult}</h2>
-          <p>${Math.round((averageScore / modules.length) * 100)}% ${copy.acrossScores}</p>
+          <p>${averageScore === null ? copy.noScore : `${Math.round(averageScore * 100)}% ${copy.acrossScores}`}</p>
         </div>
       </article>
       ${modules
