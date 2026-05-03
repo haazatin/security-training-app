@@ -1810,10 +1810,12 @@ function renderModuleCard(module) {
   const statusClass = state.statusKey === "notStarted" ? "not-started" : state.statusKey === "inProgress" ? "in-progress" : "complete";
   const action = state.completed ? copy.review : state.answered > 0 ? copy.continue : copy.start;
   const href = state.completed ? `#/module/${module.id}/0` : nextModuleHref(module);
+  const visual = moduleVisual(module.id);
 
   return `
-    <article class="module-card">
+    <article class="module-card module-${module.id}" style="--module-accent: ${visual.accent}; --module-accent-soft: ${visual.soft};">
       <div>
+        <div class="module-icon" aria-hidden="true">${visual.icon}</div>
         <h2>${module.title}</h2>
         <p>${module.description}</p>
         <div class="module-meta">
@@ -1827,6 +1829,16 @@ function renderModuleCard(module) {
       </div>
     </article>
   `;
+}
+
+function moduleVisual(moduleId) {
+  const visuals = {
+    pii: { icon: "ID", accent: "#0f9f8f", soft: "#e3faf5" },
+    phishing: { icon: "!", accent: "#d97706", soft: "#fff4dc" },
+    accounts: { icon: "MFA", accent: "#4f46e5", soft: "#eef2ff" }
+  };
+
+  return visuals[moduleId] || { icon: "SEC", accent: "#1769c2", soft: "#e5f4fb" };
 }
 
 function renderModule(moduleId, stepIndex) {
@@ -1956,12 +1968,13 @@ function renderQuestion(module, question, answerKey, selected) {
 
 function renderExample(example) {
   if (!example) return "";
+  const exampleClass = exampleKind(example.type);
 
   return `
-    <section class="workplace-example" aria-label="${example.type}">
+    <section class="workplace-example ${exampleClass}" aria-label="${example.type}">
       <div class="example-header">
-        <span>${example.type}</span>
-        <span>${example.title}</span>
+        <span class="example-type">${example.type}</span>
+        <span class="example-title">${example.title}</span>
       </div>
       <div class="example-body">
         <dl>
@@ -1970,6 +1983,18 @@ function renderExample(example) {
       </div>
     </section>
   `;
+}
+
+function exampleKind(type) {
+  const normalized = type.toLowerCase();
+  if (/spreadsheet|גיליון/.test(normalized)) return "example-sheet";
+  if (/email|mailbox|אימייל|דואר/.test(normalized)) return "example-mail";
+  if (/chat|צ'אט/.test(normalized)) return "example-chat";
+  if (/mfa|sign-in|התחברות/.test(normalized)) return "example-auth";
+  if (/sharing|שיתוף/.test(normalized)) return "example-share";
+  if (/password|סיסמה/.test(normalized)) return "example-auth";
+  if (/alert|התרא/.test(normalized)) return "example-alert";
+  return "example-document";
 }
 
 function wireQuestionButtons(moduleId) {
