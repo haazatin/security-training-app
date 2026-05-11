@@ -1461,6 +1461,17 @@ const contentByLanguage = {
       progressTitle: "Your training progress",
       progressBody: "Track completed modules and continue anything still in progress. Progress is saved only in this browser.",
       score: "Score",
+      submitCompletionTitle: "Send your completion",
+      submitCompletionBody: "Enter your 4-6 digit employee ID to submit your training completion.",
+      employeeIdLabel: "Employee ID",
+      employeeIdPlaceholder: "12345",
+      employeeIdHint: "Use 4-6 digits only.",
+      submitCompletion: "Submit completion",
+      completionSubmitting: "Sending...",
+      completionSent: "Completion sent. Thank you.",
+      completionDuplicate: "Completion was already recorded. Thank you.",
+      completionError: "We could not send your completion. Please try again or contact your training manager.",
+      completionSetupMissing: "Completion submission is not configured yet. Your local progress is still saved in this browser.",
       resourcesEyebrow: "Resources",
       resourcesTitle: "Quick references for everyday decisions",
       resourcesBody: "Short checklists learners can return to after completing the training.",
@@ -1525,6 +1536,17 @@ const contentByLanguage = {
       progressTitle: "התקדמות ההדרכה שלכם",
       progressBody: "עקבו אחרי מודולים שהושלמו והמשיכו כל דבר שעדיין בתהליך. ההתקדמות נשמרת בדפדפן הזה בלבד.",
       score: "ציון",
+      submitCompletionTitle: "שליחת השלמה",
+      submitCompletionBody: "הזינו מספר עובד בן 4-6 ספרות כדי לשלוח את השלמת ההדרכה.",
+      employeeIdLabel: "מספר עובד",
+      employeeIdPlaceholder: "12345",
+      employeeIdHint: "יש להזין 4-6 ספרות בלבד.",
+      submitCompletion: "שליחת השלמה",
+      completionSubmitting: "שולחים...",
+      completionSent: "ההשלמה נשלחה. תודה.",
+      completionDuplicate: "ההשלמה כבר נרשמה. תודה.",
+      completionError: "לא הצלחנו לשלוח את ההשלמה. נסו שוב או פנו למנהל ההדרכה.",
+      completionSetupMissing: "שליחת השלמה עדיין לא הוגדרה. ההתקדמות המקומית עדיין נשמרת בדפדפן הזה.",
       resourcesEyebrow: "משאבים",
       resourcesTitle: "הפניות קצרות להחלטות יומיומיות",
       resourcesBody: "רשימות בדיקה קצרות שאפשר לחזור אליהן אחרי ההדרכה.",
@@ -1537,12 +1559,18 @@ const contentByLanguage = {
   }
 };
 
+const trainingVersion = "2026-05-client-ready-v1";
+const appVersion = "1.0.0";
+const completionSubmissionUrl =
+  "https://script.google.com/macros/s/AKfycbwnWtkYGoqJm_ARM97StYyUq0PISr35zHYu-uW2PC7nCZKX5MkADvh6L8JqwrYmIVfy/exec";
 const storageKey = "security-training-progress-v1";
+const submissionStorageKey = "security-training-completion-submission-v1";
 const app = document.querySelector("#app");
 const languageToggle = document.querySelector("#languageToggle");
 
 let currentLang = loadLanguage();
 let progress = migrateProgress(loadProgress());
+let submissionState = loadSubmissionState();
 saveProgress();
 
 window.addEventListener("hashchange", render);
@@ -1715,6 +1743,90 @@ function resetLocalProgress() {
   render();
 }
 
+function loadSubmissionState() {
+  try {
+    const stored = localStorage.getItem(submissionStorageKey);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveSubmissionState() {
+  localStorage.setItem(submissionStorageKey, JSON.stringify(submissionState));
+}
+
+function allModulesComplete(modules = activeModules()) {
+  return modules.every((module) => moduleProgress(module).completed);
+}
+
+function completionEndpointConfigured() {
+  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(completionSubmissionUrl);
+}
+
+function completionSubmittedForCurrentVersion() {
+  return submissionState.submitted && submissionState.trainingVersion === trainingVersion;
+}
+
+function employeeIdIsValid(employeeId) {
+  return /^\d{4,6}$/.test(employeeId);
+}
+
+function buildCompletionPayload(employeeId) {
+  const moduleRecords = {};
+
+  modules.forEach((module) => {
+    const state = progress[progressKey(module.id)] || {};
+    moduleRecords[module.id] = {
+      completed: isModuleComplete(module, state),
+      score: typeof state.score === "number" ? state.score : 0,
+      maxScore: module.quiz.length
+    };
+  });
+
+  return {
+    employeeId,
+    trainingVersion,
+    appVersion,
+    language: currentLang,
+    submissionId: createSubmissionId(),
+    userAgent: navigator.userAgent,
+    modules: moduleRecords
+  };
+}
+
+function createSubmissionId() {
+  const random =
+    window.crypto?.randomUUID?.() ||
+    `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+  return `local-${random}`;
+}
+
+async function submitCompletion(employeeId) {
+  const response = await fetch(completionSubmissionUrl, {
+    method: "POST",
+    body: JSON.stringify(buildCompletionPayload(employeeId)),
+    redirect: "follow"
+  });
+
+  const result = await response.json();
+
+  if (!response.ok || !result.ok) {
+    throw new Error(result.message || "Submission failed.");
+  }
+
+  submissionState = {
+    submitted: true,
+    submittedAt: new Date().toISOString(),
+    employeeIdLast4: employeeId.slice(-4),
+    trainingVersion,
+    status: result.status || "accepted"
+  };
+  saveSubmissionState();
+  return result;
+}
+
 function getRoute() {
   const raw = window.location.hash.replace(/^#\/?/, "");
   const [page, id, step] = raw.split("/");
@@ -1800,7 +1912,11 @@ function renderDashboard() {
     <section class="module-grid" aria-label="${copy.trainingModules}">
       ${modules.map(renderModuleCard).join("")}
     </section>
+
+    ${allModulesComplete(modules) ? renderCompletionSubmissionPanel("dashboard") : ""}
   `;
+
+  wireCompletionSubmission();
 }
 
 function renderModuleCard(module) {
@@ -2157,7 +2273,10 @@ function renderProgress() {
         .join("")}
     </section>
 
+    ${allModulesComplete(modules) ? renderCompletionSubmissionPanel("progress") : ""}
   `;
+
+  wireCompletionSubmission();
 }
 
 function renderResources() {
@@ -2197,4 +2316,91 @@ function progressBar(percent) {
       <div class="progress-fill" style="--progress: ${percent}%"></div>
     </div>
   `;
+}
+
+function renderCompletionSubmissionPanel(idSuffix) {
+  const copy = activeContent().copy;
+  const configured = completionEndpointConfigured();
+  const submitted = completionSubmittedForCurrentVersion();
+  const statusText = submitted
+    ? submissionState.status === "duplicate"
+      ? copy.completionDuplicate
+      : copy.completionSent
+    : "";
+
+  return `
+    <section class="submission-panel" aria-labelledby="submission-title-${idSuffix}">
+      <div>
+        <p class="eyebrow">${copy.completed}</p>
+        <h2 id="submission-title-${idSuffix}">${copy.submitCompletionTitle}</h2>
+        <p>${configured ? copy.submitCompletionBody : copy.completionSetupMissing}</p>
+      </div>
+      ${
+        submitted
+          ? `<div class="submission-status success" role="status">${statusText}</div>`
+          : `<form class="submission-form" data-completion-form>
+              <label for="employee-id-${idSuffix}">${copy.employeeIdLabel}</label>
+              <div class="submission-controls">
+                <input
+                  id="employee-id-${idSuffix}"
+                  name="employeeId"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="\\d{4,6}"
+                  maxlength="6"
+                  placeholder="${copy.employeeIdPlaceholder}"
+                  aria-describedby="employee-id-hint-${idSuffix}"
+                  ${configured ? "" : "disabled"}
+                />
+                <button class="button" type="submit" disabled>${copy.submitCompletion}</button>
+              </div>
+              <p class="field-hint" id="employee-id-hint-${idSuffix}">${copy.employeeIdHint}</p>
+              <div class="submission-status" data-submission-status role="status" aria-live="polite"></div>
+            </form>`
+      }
+    </section>
+  `;
+}
+
+function wireCompletionSubmission() {
+  document.querySelectorAll("[data-completion-form]").forEach((form) => {
+    const copy = activeContent().copy;
+    const input = form.querySelector("input[name='employeeId']");
+    const button = form.querySelector("button[type='submit']");
+    const status = form.querySelector("[data-submission-status]");
+
+    const syncState = () => {
+      const normalized = input.value.replace(/\D/g, "").slice(0, 6);
+      if (input.value !== normalized) input.value = normalized;
+      button.disabled = !employeeIdIsValid(input.value);
+      input.setAttribute("aria-invalid", input.value && !employeeIdIsValid(input.value) ? "true" : "false");
+    };
+
+    input.addEventListener("input", syncState);
+    syncState();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const employeeId = input.value;
+      if (!employeeIdIsValid(employeeId) || !allModulesComplete()) return;
+
+      button.disabled = true;
+      input.disabled = true;
+      status.className = "submission-status";
+      status.textContent = copy.completionSubmitting;
+
+      try {
+        const result = await submitCompletion(employeeId);
+        status.className = "submission-status success";
+        status.textContent =
+          result.status === "duplicate" ? copy.completionDuplicate : copy.completionSent;
+        render();
+      } catch {
+        input.disabled = false;
+        status.className = "submission-status error";
+        status.textContent = copy.completionError;
+        syncState();
+      }
+    });
+  });
 }

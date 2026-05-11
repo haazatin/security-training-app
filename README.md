@@ -17,6 +17,7 @@ The app teaches practical workplace security habits through short lessons, reali
 - Completion tracking in `localStorage`
 - Progress page with local reset action
 - Resources page
+- Completion submission to a configured Google Apps Script endpoint
 - GitHub Pages deployment workflow
 
 ## What Is Not Included
@@ -26,9 +27,9 @@ The app teaches practical workplace security habits through short lessons, reali
 - Database
 - Organization-wide reporting
 - Admin dashboard
-- Compliance-grade completion records
+- Strong identity verification
 
-Progress is saved only in the learner's current browser.
+Progress is saved in the learner's current browser until the learner submits completion. Completion submission sends the employee ID and module completion results to the configured Google Apps Script endpoint.
 
 ## Run Locally
 
@@ -47,6 +48,45 @@ http://localhost:4173
 ## Reset Progress
 
 Use the reset action on the **Progress** page. It clears local training progress for the current browser only.
+
+## Completion Submission
+
+After all modules are complete, the dashboard and Progress page show a completion submission panel. The learner enters a numeric employee ID with 4 to 6 digits. The app submits completion data to the configured Google Apps Script web app URL in `src/app.js`.
+
+The app remains static. It does not contain Google credentials and does not write directly to Google Sheets. The Google Sheet should stay private, and the Apps Script web app should run as the script owner so learners can submit completion without receiving Sheet access.
+
+Recommended Sheet columns:
+
+```text
+submitted_at
+employee_id
+training_version
+app_version
+language
+pii_completed
+pii_score
+phishing_completed
+phishing_score
+accounts_completed
+accounts_score
+total_score
+max_score
+submission_id
+user_agent
+status
+```
+
+Recommended Apps Script deployment:
+
+1. Create a private Google Sheet for completion records.
+2. Open **Extensions -> Apps Script** from that Sheet.
+3. Add a `doPost(e)` endpoint that validates payloads and appends known columns only.
+4. Deploy as **Web app**.
+5. Set **Execute as** to the script owner.
+6. Set access according to the training audience, commonly **Anyone** for a lightweight static deployment.
+7. Copy the `/exec` web app URL into `completionSubmissionUrl` in `src/app.js`.
+
+This completion flow is useful for lightweight tracking, but it does not strongly prove identity because employee ID is self-entered. Use authentication or an identity-provider integration if stronger proof is required.
 
 ## Deploy as Static Files
 
