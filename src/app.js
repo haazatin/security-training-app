@@ -193,16 +193,16 @@ const modules = [
               feedback: "Not quite. You also need to check the recipient, unnecessary fields, hidden tabs, and sharing controls."
             },
             {
-              id: "b",
-              label: "Recipient, unnecessary fields, hidden tabs, and approved sharing controls",
-              correct: true,
-              feedback: "Good catch. A short checklist catches common ways personal data leaks before a file is sent."
-            },
-            {
               id: "c",
               label: "Nothing else if the vendor is waiting",
               correct: false,
               feedback: "Not quite. Urgency is a reason to be careful, not a reason to skip checks."
+            },
+            {
+              id: "b",
+              label: "Recipient, unnecessary fields, hidden tabs, and approved sharing controls",
+              correct: true,
+              feedback: "Good catch. A short checklist catches common ways personal data leaks before a file is sent."
             }
           ]
         },
@@ -222,11 +222,11 @@ const modules = [
       {
         prompt: "What should you do before sending a screenshot from a customer system?",
         options: [
-          "Check whether it exposes personal data and remove anything unnecessary",
           "Send it as-is if the recipient is a colleague",
-          "Paste it into a chat channel for faster help"
+          "Paste it into a chat channel for faster help",
+          "Check whether it exposes personal data and remove anything unnecessary"
         ],
-        answer: 0
+        answer: 2
       },
       {
         prompt: "What is the right response after sending PII to the wrong recipient?",
@@ -240,11 +240,11 @@ const modules = [
       {
         prompt: "What should you check before sharing a spreadsheet externally?",
         options: [
-          "Recipient, required fields, hidden tabs, and sharing controls",
           "Only the file name",
-          "Only whether the vendor requested it"
+          "Only whether the vendor requested it",
+          "Recipient, required fields, hidden tabs, and sharing controls"
         ],
-        answer: 0
+        answer: 2
       }
     ],
     takeaways: [
@@ -320,12 +320,6 @@ const modules = [
           prompt: "What should you check before opening the link?",
           options: [
             {
-              id: "a",
-              label: "Whether the sender domain matches the real payroll service",
-              correct: true,
-              feedback: "Good catch. Lookalike domains are a common way to make fake messages feel familiar."
-            },
-            {
               id: "b",
               label: "Only whether the message uses your name",
               correct: false,
@@ -336,6 +330,12 @@ const modules = [
               label: "Nothing, because payroll messages are important",
               correct: false,
               feedback: "Not quite. Important messages deserve a careful check before you click."
+            },
+            {
+              id: "a",
+              label: "Whether the sender domain matches the real payroll service",
+              correct: true,
+              feedback: "Good catch. Lookalike domains are a common way to make fake messages feel familiar."
             }
           ]
         },
@@ -444,11 +444,11 @@ const modules = [
       {
         prompt: "What should you do with a suspicious message?",
         options: [
-          "Report it using the approved process",
           "Reply and ask if it is real",
-          "Forward it casually to a group chat"
+          "Forward it casually to a group chat",
+          "Report it using the approved process"
         ],
-        answer: 0
+        answer: 2
       }
     ],
     takeaways: [
@@ -482,6 +482,12 @@ const modules = [
           prompt: "What is the safer choice?",
           options: [
             {
+              id: "c",
+              label: "Use a shorter password so it is easier to type",
+              correct: false,
+              feedback: "Not quite. Convenience should not weaken account protection."
+            },
+            {
               id: "a",
               label: "Reuse the personal password because it is familiar",
               correct: false,
@@ -492,12 +498,6 @@ const modules = [
               label: "Use a unique password, ideally in an approved password manager",
               correct: true,
               feedback: "Good catch. Unique passwords limit the damage if another service is breached."
-            },
-            {
-              id: "c",
-              label: "Use a shorter password so it is easier to type",
-              correct: false,
-              feedback: "Not quite. Convenience should not weaken account protection."
             }
           ]
         },
@@ -563,16 +563,16 @@ const modules = [
           prompt: "What should you do?",
           options: [
             {
-              id: "a",
-              label: "Share it only for a few minutes",
-              correct: false,
-              feedback: "Not quite. Short-term sharing still creates account and data risk."
-            },
-            {
               id: "b",
               label: "Say no and use the approved access process",
               correct: true,
               feedback: "Good catch. Access should be granted through approved controls, not borrowed passwords."
+            },
+            {
+              id: "a",
+              label: "Share it only for a few minutes",
+              correct: false,
+              feedback: "Not quite. Short-term sharing still creates account and data risk."
             },
             {
               id: "c",
@@ -640,10 +640,10 @@ const modules = [
         prompt: "What should you do if a colleague asks to borrow your login?",
         options: [
           "Share it only for a few minutes",
-          "Say no and use the approved access process",
-          "Write it on paper and collect it later"
+          "Write it on paper and collect it later",
+          "Say no and use the approved access process"
         ],
-        answer: 1
+        answer: 2
       },
       {
         prompt: "What can an unexpected MFA prompt indicate?",
@@ -897,16 +897,16 @@ const modulesHe = [
               feedback: "לא בדיוק. צריך לבדוק גם את הנמען, שדות מיותרים, גיליונות מוסתרים ובקרות שיתוף."
             },
             {
-              id: "b",
-              label: "נמען, שדות לא נחוצים, גיליונות מוסתרים ובקרות שיתוף מאושרות",
-              correct: true,
-              feedback: "זיהוי טוב. רשימת בדיקה קצרה תופסת דרכים נפוצות שבהן מידע אישי נחשף לפני שליחה."
-            },
-            {
               id: "c",
               label: "שום דבר נוסף אם הספק מחכה",
               correct: false,
               feedback: "לא בדיוק. דחיפות היא סיבה להיזהר, לא סיבה לדלג על בדיקות."
+            },
+            {
+              id: "b",
+              label: "נמען, שדות לא נחוצים, גיליונות מוסתרים ובקרות שיתוף מאושרות",
+              correct: true,
+              feedback: "זיהוי טוב. רשימת בדיקה קצרה תופסת דרכים נפוצות שבהן מידע אישי נחשף לפני שליחה."
             }
           ]
         },
@@ -926,11 +926,11 @@ const modulesHe = [
       {
         prompt: "מה כדאי לעשות לפני שליחת צילום מסך ממערכת לקוחות?",
         options: [
-          "לבדוק אם הוא חושף מידע אישי ולהסיר כל מה שלא נחוץ",
           "לשלוח כמו שהוא אם הנמען הוא עמית",
-          "להדביק אותו בערוץ צ'אט כדי לקבל עזרה מהר"
+          "להדביק אותו בערוץ צ'אט כדי לקבל עזרה מהר",
+          "לבדוק אם הוא חושף מידע אישי ולהסיר כל מה שלא נחוץ"
         ],
-        answer: 0
+        answer: 2
       },
       {
         prompt: "מה התגובה הנכונה אחרי שליחת מידע אישי לנמען הלא נכון?",
@@ -944,11 +944,11 @@ const modulesHe = [
       {
         prompt: "מה צריך לבדוק לפני שיתוף גיליון עם גורם חיצוני?",
         options: [
-          "נמען, שדות נדרשים, גיליונות מוסתרים ובקרות שיתוף",
           "רק את שם הקובץ",
-          "רק אם הספק ביקש את הקובץ"
+          "רק אם הספק ביקש את הקובץ",
+          "נמען, שדות נדרשים, גיליונות מוסתרים ובקרות שיתוף"
         ],
-        answer: 0
+        answer: 2
       }
     ],
     takeaways: [
@@ -1024,12 +1024,6 @@ const modulesHe = [
           prompt: "מה צריך לבדוק לפני פתיחת הקישור?",
           options: [
             {
-              id: "a",
-              label: "האם דומיין השולח תואם לשירות השכר האמיתי",
-              correct: true,
-              feedback: "זיהוי טוב. דומיינים דומים הם דרך נפוצה לגרום להודעות מזויפות להרגיש מוכרות."
-            },
-            {
               id: "b",
               label: "רק אם ההודעה משתמשת בשם שלכם",
               correct: false,
@@ -1040,6 +1034,12 @@ const modulesHe = [
               label: "שום דבר, כי הודעות שכר הן חשובות",
               correct: false,
               feedback: "לא בדיוק. הודעות חשובות מצדיקות בדיקה זהירה לפני לחיצה."
+            },
+            {
+              id: "a",
+              label: "האם דומיין השולח תואם לשירות השכר האמיתי",
+              correct: true,
+              feedback: "זיהוי טוב. דומיינים דומים הם דרך נפוצה לגרום להודעות מזויפות להרגיש מוכרות."
             }
           ]
         },
@@ -1148,11 +1148,11 @@ const modulesHe = [
       {
         prompt: "מה עושים עם הודעה חשודה?",
         options: [
-          "מדווחים עליה בתהליך המאושר",
           "עונים לשולח ושואלים אם זה אמיתי",
-          "מעבירים אותה באופן לא רשמי לצ'אט קבוצתי"
+          "מעבירים אותה באופן לא רשמי לצ'אט קבוצתי",
+          "מדווחים עליה בתהליך המאושר"
         ],
-        answer: 0
+        answer: 2
       }
     ],
     takeaways: [
@@ -1186,6 +1186,12 @@ const modulesHe = [
           prompt: "מה הבחירה הבטוחה יותר?",
           options: [
             {
+              id: "c",
+              label: "להשתמש בסיסמה קצרה יותר כדי שיהיה קל להקליד",
+              correct: false,
+              feedback: "לא בדיוק. נוחות לא צריכה להחליש את הגנת החשבון."
+            },
+            {
               id: "a",
               label: "להשתמש שוב בסיסמה האישית כי היא מוכרת",
               correct: false,
@@ -1196,12 +1202,6 @@ const modulesHe = [
               label: "להשתמש בסיסמה ייחודית, עדיף במנהל סיסמאות מאושר",
               correct: true,
               feedback: "זיהוי טוב. סיסמאות ייחודיות מצמצמות נזק אם שירות אחר נפרץ."
-            },
-            {
-              id: "c",
-              label: "להשתמש בסיסמה קצרה יותר כדי שיהיה קל להקליד",
-              correct: false,
-              feedback: "לא בדיוק. נוחות לא צריכה להחליש את הגנת החשבון."
             }
           ]
         },
@@ -1267,16 +1267,16 @@ const modulesHe = [
           prompt: "מה צריך לעשות?",
           options: [
             {
-              id: "a",
-              label: "לשתף רק לכמה דקות",
-              correct: false,
-              feedback: "לא בדיוק. גם שיתוף קצר יוצר סיכון לחשבון ולמידע."
-            },
-            {
               id: "b",
               label: "לסרב ולהשתמש בתהליך הגישה המאושר",
               correct: true,
               feedback: "זיהוי טוב. גישה צריכה להינתן דרך בקרות מאושרות, לא דרך סיסמאות מושאלות."
+            },
+            {
+              id: "a",
+              label: "לשתף רק לכמה דקות",
+              correct: false,
+              feedback: "לא בדיוק. גם שיתוף קצר יוצר סיכון לחשבון ולמידע."
             },
             {
               id: "c",
@@ -1344,10 +1344,10 @@ const modulesHe = [
         prompt: "מה עושים אם עמית מבקש להשתמש בשם המשתמש והסיסמה שלכם?",
         options: [
           "משתפים רק לכמה דקות",
-          "מסרבים ומשתמשים בתהליך הגישה המאושר",
-          "כותבים על פתק ואוספים אחר כך"
+          "כותבים על פתק ואוספים אחר כך",
+          "מסרבים ומשתמשים בתהליך הגישה המאושר"
         ],
-        answer: 1
+        answer: 2
       },
       {
         prompt: "על מה יכולה להעיד בקשת MFA לא צפויה?",
